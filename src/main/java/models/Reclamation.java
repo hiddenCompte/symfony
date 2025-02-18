@@ -3,33 +3,33 @@ package models;
 import java.util.Date;
 
 public class Reclamation {
-    private int id;
-    private int userId;
+    private int id;   // Identifiant simple
+    private User user;   // Clé étrangère vers User
     private String description;
-    private int missionId;
+    private Mission mission; // Clé étrangère vers Mission
     private String status;
     private Date date;
-    private String titre;  // Ajout du champ titre
+    private String titre;
 
-    public Reclamation() {
-    }
+    // Constructeur par défaut
+    public Reclamation() {}
 
-    // Constructeur avec le champ titre ajouté
-    public Reclamation(int userId, String description, int missionId, String status, Date date, String titre) {
-        this.userId = userId;
+    // Constructeur sans ID
+    public Reclamation(User user, String description, Mission mission, String status, Date date, String titre) {
+        this.user = user;
         this.description = description;
-        this.missionId = missionId;
+        this.mission = mission;
         this.status = status;
         this.date = date;
         this.titre = titre;
     }
 
-    // Constructeur avec l'ID en plus
-    public Reclamation(int id, int userId, String description, int missionId, String status, Date date, String titre) {
+    // Constructeur avec ID
+    public Reclamation(int id, User user, String description, Mission mission, String status, Date date, String titre) {
         this.id = id;
-        this.userId = userId;
+        this.user = user;
         this.description = description;
-        this.missionId = missionId;
+        this.mission = mission;
         this.status = status;
         this.date = date;
         this.titre = titre;
@@ -39,16 +39,16 @@ public class Reclamation {
     public String toString() {
         return "Reclamation{" +
                 "id=" + id +
-                ", userId=" + userId +
+                ", user=" + (user != null ? user.getNom() : "Non défini") +  // Utilisation de getNom() pour obtenir le nom
                 ", description='" + description + '\'' +
-                ", missionId=" + missionId +
+                ", mission=" + (mission != null ? mission.getTitre() : "Non défini") +
                 ", status='" + status + '\'' +
                 ", date=" + date +
                 ", titre='" + titre + '\'' +
                 '}';
     }
 
-    // Getters et setters pour tous les champs
+    // Getters et setters
     public int getId() {
         return id;
     }
@@ -57,12 +57,12 @@ public class Reclamation {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getDescription() {
@@ -73,12 +73,12 @@ public class Reclamation {
         this.description = description;
     }
 
-    public int getMissionId() {
-        return missionId;
+    public Mission getMission() {
+        return mission;
     }
 
-    public void setMissionId(int missionId) {
-        this.missionId = missionId;
+    public void setMission(Mission mission) {
+        this.mission = mission;
     }
 
     public String getStatus() {
