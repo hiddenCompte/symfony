@@ -2,18 +2,25 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="442.0" prefWidth="784.0" stylesheets="@CssAfficherReclamation.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="controllers.AfficherReclamationController">
-    <!-- Grille pour afficher les cartes des réclamations -->
-    <GridPane fx:id="reclamationGridPane" hgap="10" layoutX="20.0" layoutY="50.0" vgap="10" />
+<AnchorPane prefHeight="607.0" prefWidth="913.0" stylesheets="@CssAfficherReclamation.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="controllers.AfficherReclamationController">
+
+    <!-- Label pour l'en-tête -->
+    <Label layoutX="20.0" layoutY="10.0" styleClass="header-label" text="Gestion des Réclamations" />
+
+    <!-- ScrollPane pour le GridPane -->
+    <ScrollPane layoutX="20.0" layoutY="50.0" prefWidth="870.0" prefHeight="500.0" fitToWidth="true" fitToHeight="false">
+        <GridPane fx:id="reclamationGridPane" hgap="10" vgap="10" />
+    </ScrollPane>
 
     <!-- Section des boutons -->
     <VBox layoutX="340.0" layoutY="20.0" spacing="10.0" />
 
-    <!-- Label pour l'en-tête -->
-    <Label layoutX="20.0" layoutY="10.0" styleClass="header-label" text="Gestion des Réclamations" />
-     <Button fx:id="ajouterButton" layoutX="664.0" layoutY="376.0" mnemonicParsing="false" onAction="#ajouterReclamation" styleClass="button" text="Ajouter" />
+    <!-- Bouton Ajouter -->
+    <Button fx:id="ajouterButton" layoutX="794.0" layoutY="14.0" mnemonicParsing="false" onAction="#ajouterReclamation" styleClass="button ajouter" text="Ajouter" />
+
 </AnchorPane>
