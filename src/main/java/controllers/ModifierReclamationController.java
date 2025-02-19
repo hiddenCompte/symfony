@@ -8,6 +8,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import models.Reclamation;
+import models.User; // Assurez-vous d'importer la classe User
+import models.Mission; // Assurez-vous d'importer la classe Mission
 import services.ReclamationService;
 
 public class ModifierReclamationController {
@@ -17,6 +19,8 @@ public class ModifierReclamationController {
 
     private final ReclamationService reclamationService = new ReclamationService();
     private Reclamation reclamation;
+    private User utilisateur; // Pour stocker l'utilisateur
+    private Mission mission; // Pour stocker la mission
 
     // Méthode appelée par MainFX pour passer les données
     public void initData(Reclamation reclamation) {
@@ -27,24 +31,35 @@ public class ModifierReclamationController {
         }
     }
 
+    // Méthodes pour définir l'utilisateur et la mission
+    public void setUtilisateur(User utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    public void setMission(Mission mission) {
+        this.mission = mission;
+    }
+
     // Modifier la réclamation
     @FXML
     public void modifierReclamation() {
         String titre = titreTextField.getText().trim();
         String description = descriptionTextField.getText().trim();
 
+        // Vérifiez que tous les champs sont remplis
         if (titre.isEmpty() || description.isEmpty()) {
             showError("Veuillez remplir tous les champs.");
             return;
         }
 
+        // Mettre à jour les champs de la réclamation
         reclamation.setTitre(titre);
         reclamation.setDescription(description);
 
         try {
-            reclamationService.modifier(reclamation);
+            reclamationService.modifier(reclamation); // Appel au service pour modifier la réclamation
             showInfo("Réclamation modifiée avec succès !");
-            closeWindow();
+            closeWindow(); // Fermer la fenêtre après la modification
         } catch (Exception e) {
             showError("Erreur lors de la modification : " + e.getMessage());
         }
@@ -59,7 +74,7 @@ public class ModifierReclamationController {
         alert.setContentText("Êtes-vous sûr de vouloir annuler ?");
         alert.showAndWait().ifPresent(response -> {
             if (response == ButtonType.OK) {
-                closeWindow();
+                closeWindow(); // Fermer la fenêtre si l'utilisateur confirme
             }
         });
     }

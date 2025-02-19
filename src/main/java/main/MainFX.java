@@ -8,7 +8,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import controllers.AfficherReclamationController;
 import controllers.ModifierReclamationController;
-import controllers.AjouterReclamationControllers; // Importez le contrôleur pour l'ajout de réclamation
+import controllers.AjouterReclamationControllers;
 import models.Reclamation;
 import models.User;
 import models.Mission;
@@ -26,21 +26,20 @@ public class MainFX extends Application {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/AfficherReclamation.fxml"));
             AnchorPane root = loader.load();
 
-            // Initialiser le contrôleur de l'affichage des réclamations
+            // Initialisation du contrôleur d'affichage des réclamations
             AfficherReclamationController controller = loader.getController();
 
-            // Créez un utilisateur avec l'ID 1 (modifiez les attributs selon vos besoins)
+            // Création d'un utilisateur fictif
             utilisateur = new User(1, "Nom", "Prénom", "email@example.com", "motDePasse", "freelance");
             controller.setUser(utilisateur); // Passer l'utilisateur au contrôleur
 
-            // Créez une mission (modifiez selon votre constructeur)
+            // Création d'une mission fictive
             mission = new Mission(7, "Titre de la mission", "Description de la mission", 1000, new Date());
             controller.setMission(mission); // Passer la mission au contrôleur
 
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Gestion des Réclamations");
-
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -53,10 +52,15 @@ public class MainFX extends Application {
             FXMLLoader loader = new FXMLLoader(MainFX.class.getResource("/AjouterReclamation.fxml"));
             AnchorPane root = loader.load();
 
-            // Récupérer le contrôleur d'ajout de réclamation
+            // Récupérer le contrôleur
             AjouterReclamationControllers controller = loader.getController();
-            controller.setUtilisateur(utilisateur); // Définir l'utilisateur
-            controller.setMission(mission); // Définir la mission
+
+            if (controller != null) {
+                controller.setUtilisateur(utilisateur); // Passer l'utilisateur
+                controller.setMission(mission); // Passer la mission
+            } else {
+                System.err.println("Erreur : Impossible de charger le contrôleur AjouterReclamationControllers.");
+            }
 
             Stage ajouterStage = new Stage();
             ajouterStage.setTitle("Ajouter Réclamation");
@@ -69,15 +73,21 @@ public class MainFX extends Application {
         }
     }
 
-
     // Ouvrir la fenêtre de modification de réclamation
-    public static void openModifierReclamationWindow(Stage owner, Reclamation reclamation) {
+    public static void openModifierReclamationWindow(Stage owner, Reclamation reclamation, User utilisateur, Mission mission) {
         try {
             FXMLLoader loader = new FXMLLoader(MainFX.class.getResource("/ModifierReclamation.fxml"));
             AnchorPane root = loader.load();
 
             ModifierReclamationController controller = loader.getController();
-            controller.initData(reclamation); // Passer la réclamation au contrôleur
+
+            if (controller != null) {
+                controller.initData(reclamation); // Passer la réclamation
+                controller.setUtilisateur(utilisateur); // Passer l'utilisateur
+                controller.setMission(mission); // Passer la mission
+            } else {
+                System.err.println("Erreur : Impossible de charger le contrôleur ModifierReclamationController.");
+            }
 
             Stage modifierStage = new Stage();
             modifierStage.setTitle("Modifier Réclamation");
