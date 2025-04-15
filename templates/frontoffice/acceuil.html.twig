@@ -1,0 +1,378 @@
+{% extends "navbar.html.twig" %}
+{% block acceuil %}
+
+<div class="post-box">
+    <div class="post-input">
+        <img src="/chemin/vers/avatar.png" alt="Photo de profil" class="avatar">
+        <button class="start-post">Commencer un post</button>
+    </div>
+    <div class="post-actions">
+        <button class="action-button">
+            <span class="icon">🖼️</span>
+            Add post 
+        </button>
+    </div>
+</div>
+
+
+<div id="postModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="user-info">
+          <img src="/chemin/vers/avatar.png" alt="Photo" class="avatar">
+          <div>
+            <strong>Moetez Jebari</strong>
+            <div class="visibility">Visibilité : Tout le monde</div>
+          </div>
+        </div>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+
+
+        <form id="postForm" enctype="multipart/form-data">
+            <textarea placeholder="De quoi souhaitez-vous discuter ?" class="post-textarea"></textarea>
+            <input type="file" id="fileInput" accept="image/*" style="display: none;">
+            <button  type="submit" class="publish-button">Publier</button>
+        </form>
+<button  class="icon-button" id="addMediaButton">➕</button>
+        
+      </div>
+      
+      <div id="imagePreview" class="image-preview"></div>
+
+      <div class="modal-footer">
+        
+      </div>
+    </div>
+  </div>
+
+
+
+<div class="publication-feed">
+    {% for publication in publications %}
+        <div  class="publication-card {% if loop.first %}first-publication{% endif %}">
+            <div class="publication-content">
+                {% if publication.imageUrl %}
+                    <img src="{{ asset(publication.imageUrl) }}" alt="Image" class="publication-image">
+                {% endif %}
+                <h3 class="publication-title">{{ publication.title }}</h3>
+                <p class="publication-text">{{ publication.content }}</p>
+                <small class="publication-date">Publié le {{ publication.createdAt|date('d/m/Y H:i') }}</small>
+            </div>
+            <div class="publication-actions">
+                <button class="like-button">👍 J’aime</button>
+                <button class="comment-button">💬 Commenter</button>
+            </div>
+        </div>
+    {% else %}
+        <p>Aucune publication pour le moment.</p>
+    {% endfor %}
+</div>
+<style>
+    .first-publication {
+        margin-top: 50px;
+    }
+    
+    .publication-feed {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .publication-card {
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 16px;
+        margin-bottom: 20px;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+    
+    .publication-image {
+        width: 100%;
+        border-radius: 8px;
+        margin-bottom: 12px;
+    }
+    
+    .publication-title {
+        font-size: 18px;
+        margin: 0 0 10px;
+        color: #333;
+    }
+    
+    .publication-text {
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+    
+    .publication-date {
+        display: block;
+        font-size: 13px;
+        color: #888;
+        margin-bottom: 12px;
+    }
+    
+    .publication-actions {
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid #eee;
+        padding-top: 12px;
+    }
+    
+    .like-button, .comment-button {
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-size: 15px;
+        color: #555;
+        padding: 8px 12px;
+        border-radius: 6px;
+        transition: background 0.2s;
+    }
+    
+    .like-button:hover, .comment-button:hover {
+        background: #f0f0f0;
+    }
+
+
+
+
+    .post-box {
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        padding: 16px;
+        background: #fff;
+        max-width: 600px;
+        margin: 20px auto;
+        margin-top : 150px;
+    }
+    
+    .post-input {
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+    }
+    
+    .avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        margin-right: 12px;
+    }
+    
+    .start-post {
+        flex: 1;
+        padding: 12px 16px;
+        border: 1px solid #ccc;
+        border-radius: 30px;
+        background: #fff;
+        text-align: left;
+        cursor: pointer;
+        color: #555;
+        font-size: 15px;
+    }
+    
+    .start-post:hover {
+        background: #f7f7f7;
+    }
+    
+    .post-actions {
+        display: flex;
+        justify-content: space-around;
+        border-top: 1px solid #eee;
+        padding-top: 12px;
+    }
+    
+    .action-button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #555;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+    }
+    
+    .action-button .icon {
+        font-size: 18px;
+        margin-right: 6px;
+    }
+    
+    .action-button:hover {
+        color: #0073b1;
+    }
+    
+    
+</style>
+<style>
+    .image-preview img {
+        max-width: 100%;
+        margin-top: 12px;
+        border-radius: 8px;
+      }
+      
+    .modal-overlay {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+      }
+      
+      .modal-content {
+        background: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        width: 500px;
+        position: relative;
+      }
+      
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+      
+      .user-info {
+        display: flex;
+        align-items: center;
+      }
+      
+      .user-info .avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        margin-right: 12px;
+      }
+      
+      .visibility {
+        font-size: 12px;
+        color: #888;
+      }
+      
+      .close-modal {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+      }
+      
+      .post-textarea {
+        width: 100%;
+        height: 120px;
+        border: none;
+        font-size: 16px;
+        resize: none;
+        margin-bottom: 16px;
+      }
+      
+      .modal-actions {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+      
+      .icon-button {
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+      }
+      
+      .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      .schedule-button {
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+      }
+      
+      .publish-button {
+        background: #0a66c2;
+        color: white;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      
+  </style>
+
+<script>
+    document.querySelector('.start-post').addEventListener('click', function() {
+        document.getElementById('postModal').style.display = 'flex';
+      });
+      
+      document.querySelector('.close-modal').addEventListener('click', function() {
+        document.getElementById('postModal').style.display = 'none';
+      });
+      document.querySelector('.action-button').addEventListener('click', function() {
+        document.getElementById('postModal').style.display = 'flex';
+      });
+
+
+      // Ouvre le sélecteur de fichier quand on clique sur le +
+document.getElementById('addMediaButton').addEventListener('click', function() {
+    document.getElementById('fileInput').click();
+  });
+  
+  // Gère l'aperçu de l'image après sélection
+  document.getElementById('fileInput').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file && file.type.startsWith('image/')) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('imagePreview').innerHTML = 
+          `<img src="${e.target.result}" alt="Aperçu de l'image">`;
+      };
+      reader.readAsDataURL(file);
+    }
+  });
+
+
+  document.getElementById("postForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let formData = new FormData(this);
+    const imageUrl = document.getElementById('imagePreview').querySelector('img')?.src;
+    if (imageUrl) {
+        // Ajouter l'URL de l'image au FormData
+        formData.append('imageUrl', imageUrl);  // 'imageUrl' sera le nom du champ envoyé au back-end
+    }
+    fetch("publication/new", {
+        method: "POST",
+        body: formData
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.text();
+        }
+    })
+    .then(data => {
+        // actualiser le fil d'actualité ou ajouter le post dans la page
+        location.reload();
+    })
+    .catch(error => {
+        console.error("Erreur :", error);
+    });
+});
+
+  
+            
+</script>
+  
+
+
+
+{% endblock  %}

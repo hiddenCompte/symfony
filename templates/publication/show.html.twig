@@ -8,10 +8,6 @@
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ publication.id }}</td>
-            </tr>
-            <tr>
                 <th>Post_id</th>
                 <td>{{ publication.postId }}</td>
             </tr>
@@ -28,8 +24,15 @@
                 <td>{{ publication.content }}</td>
             </tr>
             <tr>
-                <th>Image_url</th>
-                <td>{{ publication.imageUrl }}</td>
+                <th>Image</th>
+                <td>
+                    {% if publication.imageUrl %}
+                        <img src="{{ publication.imageUrl }}" alt="{{ publication.title }}" style="max-width: 300px;">
+                       
+                    {% else %}
+                        Aucune image
+                    {% endif %}
+                </td>
             </tr>
             <tr>
                 <th>Created_at</th>
@@ -44,7 +47,7 @@
 
     <a href="{{ path('app_publication_index') }}">back to list</a>
 
-    <a href="{{ path('app_publication_edit', {'id': publication.id}) }}">edit</a>
+    <a href="{{ path('app_publication_edit', {'id':  publication.postId}) }}">edit</a>
 
     {{ include('publication/_delete_form.html.twig') }}
 {% endblock %}

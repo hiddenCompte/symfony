@@ -22,24 +22,31 @@ final class PublicationController extends AbstractController
         ]);
     }
 
+    
+
     #[Route('/new', name: 'app_publication_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $em): Response
     {
-        $publication = new Publication();
-        $form = $this->createForm(PublicationType::class, $publication);
-        $form->handleRequest($request);
+        $post = new Publication();
+        $post->setContent($request->request->get('content'));
+        $post->setCreatedAt(new \DateTime());
+        $post->setImageUrl($request->request->get('file'));
+        $post->setTitle('Post');
+        $post->setUserId(1);
+        $post->setCategorie("formation");
+        
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($publication);
-            $entityManager->flush();
+    $imageFile = $request->files->get('image');
+    if ($imageFile) {
+        $newFilename = uniqid().'.'.$imageFile->guessExtension();
+        $imageFile->move($this->getParameter('uploads_directory'), $newFilename);
+        $post->setImageUrl($newFilename);
+    }
 
-            return $this->redirectToRoute('app_publication_index', [], Response::HTTP_SEE_OTHER);
-        }
+    $em->persist($post);
+    $em->flush();
 
-        return $this->render('publication/new.html.twig', [
-            'publication' => $publication,
-            'form' => $form,
-        ]);
+    return new Response("Post ajouté avec succès !");
     }
 
     #[Route('/{id}', name: 'app_publication_show', methods: ['GET'])]
@@ -71,7 +78,7 @@ final class PublicationController extends AbstractController
     #[Route('/{id}', name: 'app_publication_delete', methods: ['POST'])]
     public function delete(Request $request, Publication $publication, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$publication->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$publication->getPostId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($publication);
             $entityManager->flush();
         }

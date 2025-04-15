@@ -7,15 +7,14 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PublicationRepository::class)]
+#[ORM\Table(name: "posts")]
 class Publication
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
-
-    #[ORM\Column]
-    private ?int $post_id = null;
+      private ?int $post_id = null;
+  
 
     #[ORM\Column]
     private ?int $user_id = null;
@@ -29,16 +28,12 @@ class Publication
     #[ORM\Column(length: 200, nullable: true)]
     private ?string $image_url = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $created_at = null;
+    #[ORM\Column(type: "datetime")]
+     private ?\DateTimeInterface $created_at = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $categorie = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getPostId(): ?int
     {

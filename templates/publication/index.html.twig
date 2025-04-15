@@ -1,47 +1,103 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Publication index{% endblock %}
+{% block title %}Hello {{controller_name}}{% endblock %}
 
-{% block body %}
-    <h1>Publication index</h1>
+    {% set li_tables_class = 'menu-open' %}
+    {% set i_userstable = 'active' %}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
+   
+   
+
+{% block table_publication %}
+
+
+ <div class="content-wrapper">
+  {% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }}">{{ message }}</div>
+    {% endfor %}
+{% endfor %}
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Table Posts</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active">Table Posts</li>
+          </ol>
+        </div>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Responsive Hover Table</h3>
+
+         
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body table-responsive p-0" id="results">
+          <table id="userTable" class="table table-hover text-nowrap">
+            <thead>
+              <tr>
                 <th>Post_id</th>
-                <th>User_id</th>
-                <th>Title</th>
-                <th>Content</th>
-                <th>Image_url</th>
-                <th>Created_at</th>
-                <th>Categorie</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for publication in publications %}
-            <tr>
-                <td>{{ publication.id }}</td>
-                <td>{{ publication.postId }}</td>
-                <td>{{ publication.userId }}</td>
-                <td>{{ publication.title }}</td>
-                <td>{{ publication.content }}</td>
-                <td>{{ publication.imageUrl }}</td>
-                <td>{{ publication.createdAt ? publication.createdAt|date('Y-m-d') : '' }}</td>
-                <td>{{ publication.categorie }}</td>
-                <td>
-                    <a href="{{ path('app_publication_show', {'id': publication.id}) }}">show</a>
-                    <a href="{{ path('app_publication_edit', {'id': publication.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_publication_new') }}">Create new</a>
+            <th>User_id</th>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Image_url</th>
+            <th>Created_at</th>
+            <th>Categorie</th>
+            <th>actions</th
+              </tr>
+            </thead>
+            <tbody>
+              {% if publications is empty %}
+              <tr>
+                <td colspan="5">Aucun utilisateur trouvé.</td>
+               </tr>
+             {% else %}
+             {% for publication in publications %}
+             <tr>
+                 <td>{{ publication.postId }}</td>
+                 <td>{{ publication.userId }}</td>
+                 <td>{{ publication.title }}</td>
+                 <td>{{ publication.content }}</td>
+                 <td>{{ publication.imageUrl }}</td>
+                 <td>{{ publication.createdAt ? publication.createdAt|date('Y-m-d') : '' }}</td>
+                 <td>{{ publication.categorie }}</td>
+                 <td>
+                     <a href="{{ path('app_publication_show', {'id': publication.postId}) }}">show</a>
+                     <a href="{{ path('app_publication_edit', {'id': publication.postId}) }}">edit</a>
+                 </td>
+             </tr>
+         {% else %}
+             <tr>
+                 <td colspan="9">no records found</td>
+             </tr>
+         {% endfor %}
+             {% endif %} 
+            
+            </tbody>
+          </table>
+          <a href="{{ path('app_publication_new') }}">Create new</a>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+</div>
+ </div>
+ 
 {% endblock %}
+
+
+
+
+
+
