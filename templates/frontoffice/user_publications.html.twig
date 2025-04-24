@@ -1,0 +1,897 @@
+{% extends "navbar.html.twig" %}
+
+
+{% block user_publication %}
+    <style>
+        .publication-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            height: 40px;
+        }
+        
+        .publication-options {
+            position: absolute;
+            top: 0px;
+            right: -560px;
+            font-size: 20px;
+            cursor: pointer;
+            user-select: none;
+        }
+        .first-publication {
+            margin-top: 150px;
+        }
+        
+        .publication-feed {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .publication-card {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 16px;
+            margin-bottom: 20px;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        
+        .publication-image {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .publication-title {
+            font-size: 18px;
+            margin: 0 0 10px;
+            color: #333;
+        }
+        
+        .publication-text {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        
+        .publication-date {
+            display: block;
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 12px;
+        }
+        
+        .publication-actions {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #eee;
+            padding-top: 12px;
+        }
+        
+        .like-button, .comment-button {
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 15px;
+            color: #555;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        
+        .like-button:hover, .comment-button:hover {
+            background: #f0f0f0;
+        }
+    
+    
+    
+    
+        .post-box {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 16px;
+            background: #fff;
+            max-width: 600px;
+            margin: 20px auto;
+            margin-top : 150px;
+        }
+        
+        .post-input {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+        
+        .start-post {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #ccc;
+            border-radius: 30px;
+            background: #fff;
+            text-align: left;
+            cursor: pointer;
+            color: #555;
+            font-size: 15px;
+        }
+        
+        .start-post:hover {
+            background: #f7f7f7;
+        }
+        
+        .post-actions {
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #eee;
+            padding-top: 12px;
+        }
+        
+        .action-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #555;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .action-button .icon {
+            font-size: 18px;
+            margin-right: 6px;
+        }
+        
+        .action-button:hover {
+            color: #0073b1;
+        }
+        .publication-options {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .options-menu {
+            position: absolute;
+            top: 0;
+            left: 25px; /* distance à droite des 3 points */
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 5px 0;
+            display: none;
+            flex-direction: column;
+            z-index: 100;
+            min-width: 120px;
+            border-radius: 5px;
+        }
+        
+        .options-menu a {
+            display: block;
+            padding: 8px 12px;
+            text-decoration: none;
+            color: #333;
+        }
+        
+        .options-menu a:hover {
+            background-color: #f2f2f2;
+        }
+        
+        
+    </style>
+<div class="publication-feed">
+    {% for publication in publications %}
+        <div  class="publication-card {% if loop.first %}first-publication{% endif %}">
+            <div class="publication-header">
+                <div class="publication-options">
+                    <div class="options-button">⋯</div>
+                    <div class="options-menu">
+                        <a href="{{path('app_publication_edit' , {'id': publication.postId})}}">Modifier</a>
+                        <form method="post" action="{{ path('app_publication_delete', {'id': publication.postId}) }}" style="display: inline;" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette publication ?');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ publication.postId) }}">
+                            <button type="submit" style="background: none; border: none; color: #333; padding: 8px 12px; width: 100%; text-align: left; cursor: pointer;">Supprimer</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <div class="publication-content">
+                {% if publication.imageUrl %}
+                    <img src="{{ asset('uploads/' ~ publication.imageUrl) }}" alt="Image" class="publication-image">
+                {% endif %}
+                <h3 class="publication-title">{{ publication.title }}</h3>
+                <p class="publication-text">{{ publication.content }}</p>
+                <small class="publication-date">Publié le {{ publication.createdAt|date('d/m/Y H:i') }}</small>
+            </div>
+            <div class="publication-actions">
+                <button class="like-button">👍 J'aime</button>
+                <button class="comment-button" data-post-id="{{ publication.postId }}">💬 Commenter</button>
+            </div>
+        </div>
+    {% else %}
+        <p>Aucune publication pour le moment.</p>
+    {% endfor %}
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".options-button").forEach(button => {
+            button.addEventListener("click", function(e) {
+                e.stopPropagation();
+                const menu = this.nextElementSibling;
+                menu.style.display = (menu.style.display === "block") ? "none" : "block";
+    
+                // Fermer les autres menus
+                document.querySelectorAll(".options-menu").forEach(m => {
+                    if (m !== menu) m.style.display = "none";
+                });
+            });
+        });
+    
+        // Clique en dehors pour fermer
+        document.addEventListener("click", () => {
+            document.querySelectorAll(".options-menu").forEach(menu => {
+                menu.style.display = "none";
+            });
+        });
+    });
+    
+</script>
+
+<!-- Modal de modification -->
+<div id="editModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="user-info">
+                <img src="/chemin/vers/avatar.png" alt="Photo" class="avatar">
+                <div>
+                    <strong>Modifier la publication</strong>
+                </div>
+            </div>
+            <button class="close-modal" id="closeEditModal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="editForm" enctype="multipart/form-data">
+                <input type="hidden" id="editPublicationId" name="id">
+                <textarea id="editContent" name="content" placeholder="De quoi souhaitez-vous discuter ?" class="post-textarea"></textarea>
+                <input type="file" id="editFileInput" accept="image/*" style="display: none;">
+                <button type="submit" class="publish-button">Mettre à jour</button>
+            </form>
+            <button class="icon-button" id="editAddMediaButton">➕</button>
+        </div>
+        <div id="editImagePreview" class="image-preview"></div>
+    </div>
+</div>
+
+
+<div id="publicationModal" class="modal hidden">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+  
+        <div class="publication-card">
+            <div class="publication-content" id="modal-publication-content">
+                <!-- Contenu dynamique ici -->
+            </div>
+            <div class="publication-actions">
+                <button class="like-button">👍 J'aime</button>
+                <button class="comment-button" >💬 Commenter</button>
+            </div>
+        </div>
+  
+        <div id="modal-comments-section" class="comments-section">
+            <!-- Les commentaires ici -->
+           
+        </div>
+        <div class="comment-input-fixed"> 
+            <img src="/path/to/user-avatar.jpg" alt="User Avatar" class="comment-avatar">
+            <input type="text" placeholder="Commenter en tant que Moetez Jebari" class="comment-text-input" />
+            <button class="comment-send-button">➤</button>
+        </div>
+    </div>
+  </div>
+<style>
+
+    
+   .modal-content {
+    position: relative;
+    padding-bottom: 100px; /* espace pour l'input */
+    width: 600px; /* ou ce que tu veux */
+    margin: 0 auto; /* centré */
+    overflow-y: auto; 
+}
+
+.comments-section {
+   
+    padding-bottom: 50px; /* espace entre les commentaires et l'input */
+}
+
+.comment-input-fixed {
+    position: fixed;
+    bottom: 50px;
+    margin-left: 0;
+    width: 450px;
+    background: #f1f3f5;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-top: 1px solid #ccc;
+    z-index: 1000;
+    border: 2px solid #ccc; 
+    box-sizing: border-box;
+    border-radius: 20px;
+    outline: none;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+    .comment-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 10px;
+    }
+    
+    .comment-text-input {
+        flex: 1;
+        border: none;
+        background: transparent;
+        font-size: 14px;
+        outline: none;
+        color: #333;
+    }
+    
+    .comment-send-button {
+        background: none;
+        border: none;
+        font-size: 18px;
+        color: #555;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+    
+        .modal {
+          position: fixed;
+          top: 0; left: 0;
+          width: 100vw; height: 100vh;
+          background-color: rgba(0, 0, 0, 0.7);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 9999;
+      }
+      
+      .modal-content {
+          background: #fff;
+          width: 80%;
+          max-height: 90vh;
+          overflow-y: auto;
+          border-radius: 10px;
+          padding: 20px;
+          position: relative;
+      }
+      
+      .close {
+          position: absolute;
+          top: 10px;
+          right: 20px;
+          font-size: 24px;
+          cursor: pointer;
+      }
+      
+      .comments-section {
+          margin-top: 20px;
+          border-top: 1px solid #ccc;
+          padding-top: 15px;
+      }
+      .comment {
+          margin-bottom: 10px;
+      }
+      .hidden {
+          display: none;
+      }
+      
+</style>
+<style>
+    .modal-overlay {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0,0,0,0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+    }
+    
+    .modal-content {
+        background: #fff;
+        border-radius: 10px;
+        padding: 20px;
+        width: 500px;
+        position: relative;
+    }
+    
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+    }
+    
+    .user-info {
+        display: flex;
+        align-items: center;
+    }
+    
+    .user-info .avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        margin-right: 12px;
+    }
+    
+    .close-modal {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+    }
+    
+    .post-textarea {
+        width: 100%;
+        height: 120px;
+        border: none;
+        font-size: 16px;
+        resize: none;
+        margin-bottom: 16px;
+    }
+    
+    .icon-button {
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+    }
+    
+    .publish-button {
+        background: #0a66c2;
+        color: white;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 20px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+    
+    .image-preview img {
+        max-width: 100%;
+        margin-top: 12px;
+        border-radius: 8px;
+    }
+    
+    .validation-errors {
+        color: red;
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        const modal = document.getElementById('publicationModal');
+        const closeBtn = modal.querySelector('.close');
+        const modalContent = document.getElementById('modal-publication-content');
+        const commentsSection = document.getElementById('modal-comments-section');
+    
+        document.querySelectorAll('.comment-button').forEach(button => {
+            button.addEventListener('click', () => {
+
+                const card = button.closest('.publication-card');
+    
+                const image = card.querySelector('.publication-image')?.src;
+                const title = card.querySelector('.publication-title')?.innerText;
+                const content = card.querySelector('.publication-text')?.innerText;
+                const date = card.querySelector('.publication-date')?.innerText;
+    
+                modalContent.innerHTML = `
+                    ${image ? `<img src="${image}" alt="Image" style="width: 100%; border-radius: 10px;">` : ''}
+                    <h3 class="publication-title">${title}</h3>
+                    <p class="publication-text">${content}</p>
+                    <small class="publication-date">${date}</small>
+                `;
+
+    
+                // 🔥 Récupération dynamique des commentaires
+                const postId = button.getAttribute('data-post-id');
+                document.querySelector('.comment-send-button').setAttribute('data-post-id', postId);
+    
+
+                fetch(`/comments/api/comments/${postId}`)
+                    .then(response => response.json())
+                    .then(comments => {
+                        commentsSection.innerHTML = '<h4>Commentaires</h4>';
+    
+                        comments.forEach(comment => {
+                            commentsSection.innerHTML += `
+                                <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 15px;">
+                                    <img src="/path/to/default-profile.png" alt="avatar" style="width: 40px; height: 40px; border-radius: 50%;">
+                                    <div style="background-color: #f0f2f5; padding: 10px 15px; border-radius: 18px; max-width: 600px;">
+                                        <strong>${comment.userName}</strong>
+                                        <p style="margin: 5px 0;">${comment.comment_text}</p>
+                                        <div style="font-size: 12px; color: #666;">
+                                            ${comment.created_at} • 
+                                            <a href="#">J'aime</a> • 
+                                            <a href="#" onclick="showReplyInput(${comment.comment_id})"  >Répondre</a> • 
+                                            <a href="#">Modifier</a>
+                                            <a href="#" style="color: #385898; font-weight: bold;" onclick="toggleReplies(${comment.comment_id})")">
+                                             Voir les réponses
+                                             </a>
+                                        </div>
+                                        <div id="replies-${comment.comment_id}" style="margin-top: 10px; display: none;">
+                                         <!-- Les réponses seront chargées ici dynamiquement -->
+                                       </div>
+                                       <div id="reply-input-${comment.comment_id}" style="margin-top: 10px;"></div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                    })
+                    .catch(err => {
+                        commentsSection.innerHTML = '<p>Erreur lors du chargement des commentaires.</p>';
+                    });
+    
+                modal.classList.remove('hidden');
+            });
+        });
+
+    
+        closeBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+    
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+            }
+        });
+    });
+
+    document.querySelector('.comment-send-button').addEventListener('click', () => {
+        const postId = document.querySelector('.comment-send-button').getAttribute('data-post-id');
+        const commentText = document.querySelector('.comment-text-input').value;
+    
+        if (!commentText.trim()) return; // on ignore les commentaires vides
+    
+        fetch('/comments/api/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                postId: postId,
+                commentText: commentText,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // recharger les commentaires
+                document.querySelector(`.comment-button[data-post-id="${postId}"]`).click();
+            } else {
+                alert('Erreur lors de l’ajout du commentaire');
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            alert('Erreur réseau.');
+        });
+    });
+    
+
+    function showReplyInput(commentId) {
+        const replyInputDiv = document.getElementById(`reply-input-${commentId}`);
+        
+        // Ne pas dupliquer le champ si déjà présent
+        if (replyInputDiv.innerHTML.trim() !== '') {
+            replyInputDiv.innerHTML = '';
+            return;
+        }
+    
+        replyInputDiv.innerHTML = `
+            <textarea id="reply-text-${commentId}" placeholder="Votre réponse..." style="width: 100%; padding: 8px; margin-bottom: 5px;"></textarea>
+            <button onclick="submitReply(${commentId})" style="background-color: #1877f2; color: white; border: none; padding: 6px 12px; border-radius: 5px;">
+                Répondre
+            </button>
+        `;
+    }
+
+    function submitReply(commentId) {
+
+        const replyText = document.getElementById(`reply-text-${commentId}`).value.trim();
+    
+        if (replyText === '') return;
+    
+        fetch('/comments/comment/reply', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                comment_id: commentId,
+                reply: replyText,
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            const repliesContainer = document.getElementById(`replies-${commentId}`);
+            if (repliesContainer) {
+                repliesContainer.innerHTML += `<div class="reply" style="margin-left: 20px; padding: 5px 0;">${data}</div>`;
+            }
+            // On vide le champ
+            document.getElementById(`reply-input-${commentId}`).innerHTML = '';
+        })
+        .catch(error => console.error('Erreur:', error));
+    }
+
+    function toggleReplies(commentId) {
+        const repliesDiv = document.getElementById(`replies-${commentId}`);
+    
+        // Toggle d'affichage si déjà chargé
+        if (repliesDiv.dataset.loaded === "true") {
+            repliesDiv.style.display = repliesDiv.style.display === 'none' ? 'block' : 'none';
+            return;
+        }
+    
+        fetch(`/comments/api/${commentId}/replies`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && Array.isArray(data.replies)) {
+                repliesDiv.innerHTML = data.replies.map(reply => `
+                    <div class="reply" style="margin-left: 20px; padding: 5px 0;">
+                        <strong>${reply.user}</strong> : ${reply.text}
+                    </div>
+                `).join('');
+                repliesDiv.style.display = 'block';
+                repliesDiv.dataset.loaded = "true"; // pour éviter les re-fetchs inutiles
+            } else {
+                repliesDiv.innerHTML = `<div style="margin-left: 20px;">Aucune réponse trouvée.</div>`;
+                repliesDiv.style.display = 'block';
+            }
+        })
+        .catch(error => {
+            console.error('Erreur lors du chargement des réponses :', error);
+            repliesDiv.innerHTML = `<div style="margin-left: 20px; color: red;">Erreur lors du chargement.</div>`;
+            repliesDiv.style.display = 'block';
+        });
+    }
+    
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        // Ouvrir la modal d'édition
+        document.querySelectorAll('.options-menu a').forEach(link => {
+            if (link.textContent === 'Modifier') {
+              
+                link.addEventListener('click', function(e) {
+                    
+                    e.preventDefault();
+                    const parts = this.getAttribute('href').split('/');
+                    const id = parts[parts.length - 2];
+
+                    
+                    // Afficher un indicateur de chargement
+                    const modal = document.getElementById('editModal');
+                    modal.style.display = 'flex';
+                    document.getElementById('editContent').value = 'Chargement...';
+                    // Récupérer les données de la publication
+                    fetch(`/publication/${id}/edit`, {
+                        method: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        }
+                        
+                    })
+                    
+                    .then(response => {
+                        if (!response.ok) {
+                            return response.json().then(data => {
+                                throw new Error(data.error || 'Erreur lors de la récupération des données');
+                            });
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        // Remplir les champs du formulaire
+                        document.getElementById('editPublicationId').value = data.id;
+                        document.getElementById('editContent').value = data.content;
+                        
+                        // Afficher l'image existante si elle existe
+                        const imagePreview = document.getElementById('editImagePreview');
+                        if (data.imageUrl) {
+                            imagePreview.innerHTML = `<img src="/uploads/${data.imageUrl}" alt="Image à modifier">`;
+                        } else {
+                            imagePreview.innerHTML = '';
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Erreur:', error);
+                        alert(error.message || 'Une erreur est survenue lors de la récupération des données');
+                        modal.style.display = 'none';
+                    });
+                });
+            }
+        });
+        
+        // Fermer la modal d'édition
+        document.getElementById('closeEditModal').addEventListener('click', function() {
+            document.getElementById('editModal').style.display = 'none';
+        });
+        
+        // Ouvrir le sélecteur de fichier pour l'édition
+        document.getElementById('editAddMediaButton').addEventListener('click', function() {
+            document.getElementById('editFileInput').click();
+        });
+        
+        // Prévisualisation de l'image lors de l'édition
+        document.getElementById('editFileInput').addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('editImagePreview').innerHTML = `<img src="${e.target.result}" alt="Prévisualisation">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Soumission du formulaire d'édition
+        document.getElementById('editForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData();
+            formData.append('content', document.getElementById('editContent').value);
+            
+            // Ajouter le fichier image s'il existe
+            const fileInput = document.getElementById('editFileInput');
+            if (fileInput.files.length > 0) {
+                formData.append('image', fileInput.files[0]);
+            }
+            
+            // Afficher un indicateur de chargement
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.textContent;
+            submitButton.textContent = 'Mise à jour en cours...';
+            submitButton.disabled = true;
+            
+            const publicationId = document.getElementById('editPublicationId').value;
+            fetch(`/publication/${publicationId}/edit`, {
+                method: 'POST',
+                body: formData,
+                // Ne pas définir Content-Type, il sera automatiquement défini avec la bonne boundary
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(data => {
+                        throw new Error(data.error || 'Erreur lors de la modification');
+                    });
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Afficher un message de succès
+                alert(data.message || 'Publication modifiée avec succès');
+                
+                // Fermer la modale
+                document.getElementById('editModal').style.display = 'none';
+                
+                // Actualiser la page pour afficher les modifications
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                alert(error.message || 'Une erreur est survenue lors de la modification de la publication');
+            })
+            .finally(() => {
+                // Restaurer le bouton
+                submitButton.textContent = originalButtonText;
+                submitButton.disabled = false;
+            });
+        });
+    });
+</script>
+
+<div class="post-box">
+    <form id="postForm" enctype="multipart/form-data">
+        <div class="post-input">
+            <textarea id="content" name="content" class="post-textarea" placeholder="De quoi souhaitez-vous discuter ?" minlength="5"></textarea>
+        </div>
+        <div id="validationErrors" class="validation-errors" style="color: red; margin-bottom: 10px;"></div>
+        <div class="post-actions">
+            <button type="button" class="action-button" id="addMediaButton">
+                <span class="icon">📷</span> Ajouter une photo
+            </button>
+            <input type="file" id="fileInput" name="image" accept="image/*" style="display: none;">
+            <button type="submit" class="publish-button">Publier</button>
+        </div>
+    </form>
+    <div id="imagePreview" class="image-preview"></div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // ... existing code ...
+        
+        // Soumission du formulaire de publication
+        document.getElementById('postForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Réinitialiser les messages d'erreur
+            document.getElementById('validationErrors').textContent = '';
+            
+            const formData = new FormData();
+            formData.append('content', document.getElementById('content').value);
+            
+            // Ajouter le fichier image s'il existe
+            const fileInput = document.getElementById('fileInput');
+            if (fileInput.files.length > 0) {
+                formData.append('image', fileInput.files[0]);
+            }
+            
+            // Afficher un indicateur de chargement
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.textContent;
+            submitButton.textContent = 'Publication en cours...';
+            submitButton.disabled = true;
+            
+            fetch('/publication/new', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    // Afficher les erreurs de validation
+                    document.getElementById('validationErrors').textContent = data.error;
+                    throw new Error(data.error);
+                }
+                
+                // Afficher un message de succès
+                alert(data.message || 'Publication ajoutée avec succès');
+                
+                // Réinitialiser le formulaire
+                this.reset();
+                document.getElementById('imagePreview').innerHTML = '';
+                
+                // Actualiser la page pour afficher la nouvelle publication
+                location.reload();
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                if (!document.getElementById('validationErrors').textContent) {
+                    alert(error.message || 'Une erreur est survenue lors de la publication');
+                }
+            })
+            .finally(() => {
+                // Restaurer le bouton
+                submitButton.textContent = originalButtonText;
+                submitButton.disabled = false;
+            });
+        });
+        
+        // ... rest of the existing code ...
+    });
+</script>
+{% endblock  %}

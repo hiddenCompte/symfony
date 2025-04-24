@@ -8,7 +8,7 @@
     </div>
     <div class="post-actions">
         <button class="action-button">
-            <span class="icon">🖼️</span>
+            <span class="icon"></span>
             Add post 
         </button>
     </div>
@@ -27,6 +27,7 @@
         </div>
         <button class="close-modal">&times;</button>
       </div>
+      
       <div class="modal-body">
 
 
@@ -35,7 +36,8 @@
             <input type="file" id="fileInput" accept="image/*" style="display: none;">
             <button  type="submit" class="publish-button">Publier</button>
         </form>
-<button  class="icon-button" id="addMediaButton">➕</button>
+        <button  class="icon-button" id="addMediaButton">➕</button>
+
         
       </div>
       
@@ -54,14 +56,14 @@
         <div  class="publication-card {% if loop.first %}first-publication{% endif %}">
             <div class="publication-content">
                 {% if publication.imageUrl %}
-                    <img src="{{ asset(publication.imageUrl) }}" alt="Image" class="publication-image">
+                    <img src="{{ asset('uploads/' ~ publication.imageUrl) }}" alt="Image" class="publication-image">
                 {% endif %}
                 <h3 class="publication-title">{{ publication.title }}</h3>
                 <p class="publication-text">{{ publication.content }}</p>
                 <small class="publication-date">Publié le {{ publication.createdAt|date('d/m/Y H:i') }}</small>
             </div>
             <div class="publication-actions">
-                <button class="like-button">👍 J’aime</button>
+                <button class="like-button">👍 J'aime</button>
                 <button class="comment-button">💬 Commenter</button>
             </div>
         </div>
@@ -69,6 +71,71 @@
         <p>Aucune publication pour le moment.</p>
     {% endfor %}
 </div>
+
+<div id="publicationModal" class="modal hidden">
+  <div class="modal-content">
+      <span class="close">&times;</span>
+
+      <div class="publication-card">
+          <div class="publication-content" id="modal-publication-content">
+              <!-- Contenu dynamique ici -->
+          </div>
+          <div class="publication-actions">
+              <button class="like-button">👍 J'aime</button>
+              <button class="comment-button">💬 Commenter</button>
+          </div>
+      </div>
+
+      <div id="modal-comments-section" class="comments-section">
+          <!-- Les commentaires ici -->
+      </div>
+  </div>
+</div>
+
+<style>
+  .modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: #fff;
+    width: 80%;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.comments-section {
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 15px;
+}
+.comment {
+    margin-bottom: 10px;
+}
+.hidden {
+    display: none;
+}
+
+</style>
+
 <style>
     .first-publication {
         margin-top: 50px;
@@ -309,8 +376,60 @@
       
   </style>
 
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const modal = document.getElementById('publicationModal');
+        const closeBtn = modal.querySelector('.close');
+        const modalContent = document.getElementById('modal-publication-content');
+        const commentsSection = document.getElementById('modal-comments-section');
+    
+        document.querySelectorAll('.comment-button').forEach((button, index) => {
+            button.addEventListener('click', () => {
+                const card = button.closest('.publication-card');
+    
+                const image = card.querySelector('.publication-image')?.src;
+                const title = card.querySelector('.publication-title')?.innerText;
+                const content = card.querySelector('.publication-text')?.innerText;
+                const date = card.querySelector('.publication-date')?.innerText;
+    
+                modalContent.innerHTML = `
+                    ${image ? `<img src="${image}" alt="Image" style="width: 100%; border-radius: 10px;">` : ''}
+                    <h3 class="publication-title">${title}</h3>
+                    <p class="publication-text">${content}</p>
+                    <small class="publication-date">${date}</small>
+                `;
+    
+                // 🔥 Simule des commentaires ici, ou tu pourras les injecter avec Twig ou AJAX
+                commentsSection.innerHTML = `
+                    <h4>Commentaires</h4>
+                    <div class="comment"><strong>Sarah</strong> : Super publication !</div>
+                    <div class="comment"><strong>Ali</strong> : Très intéressant !</div>
+                    <div class="comment"><strong>Rami</strong> : Hâte de participer 👏</div>
+                `;
+    
+                modal.classList.remove('hidden');
+            });
+        });
+    
+        closeBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+    
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+            }
+        });
+    });
+    </script>
+    
+
+
 <script>
+  
     document.querySelector('.start-post').addEventListener('click', function() {
+      
         document.getElementById('postModal').style.display = 'flex';
       });
       
@@ -318,6 +437,7 @@
         document.getElementById('postModal').style.display = 'none';
       });
       document.querySelector('.action-button').addEventListener('click', function() {
+     
         document.getElementById('postModal').style.display = 'flex';
       });
 
@@ -329,6 +449,8 @@ document.getElementById('addMediaButton').addEventListener('click', function() {
   
   // Gère l'aperçu de l'image après sélection
   document.getElementById('fileInput').addEventListener('change', function(event) {
+    
+
     const file = event.target.files[0];
     if (file && file.type.startsWith('image/')) {
       const reader = new FileReader();
@@ -336,35 +458,80 @@ document.getElementById('addMediaButton').addEventListener('click', function() {
         document.getElementById('imagePreview').innerHTML = 
           `<img src="${e.target.result}" alt="Aperçu de l'image">`;
       };
+      
       reader.readAsDataURL(file);
+      
+      
     }
   });
 
 
   document.getElementById("postForm").addEventListener("submit", function(e) {
     e.preventDefault();
-
-    let formData = new FormData(this);
-    const imageUrl = document.getElementById('imagePreview').querySelector('img')?.src;
-    if (imageUrl) {
-        // Ajouter l'URL de l'image au FormData
-        formData.append('imageUrl', imageUrl);  // 'imageUrl' sera le nom du champ envoyé au back-end
+    
+    let formData = new FormData();
+    // Récupérer le contenu du textarea
+    const content = document.querySelector('.post-textarea').value;
+    
+    
+    // Vérifier si le contenu est vide
+    if (!content.trim()) {
+        alert('Le contenu ne peut pas être vide');
+        return;
     }
-    fetch("publication/new", {
+    
+    formData.append('content', content);
+  
+    // Ajouter le fichier image s'il existe
+    const fileInput = document.getElementById('fileInput');
+    if (fileInput.files.length > 0) {
+        formData.append('image', fileInput.files[0]);
+    }
+    
+    // Afficher un indicateur de chargement
+    const submitButton = this.querySelector('button[type="submit"]');
+    const originalButtonText = submitButton.textContent;
+    submitButton.textContent = 'Envoi en cours...';
+    submitButton.disabled = true;
+    
+    fetch("/publication/new", {
         method: "POST",
         body: formData
     })
     .then(response => {
-        if (response.ok) {
-            return response.text();
+        if (!response.ok) {
+            return response.json().then(data => {
+                throw new Error(data.error || 'Erreur lors de l\'ajout du post');
+            });
         }
+        return response.json();
     })
     .then(data => {
-        // actualiser le fil d'actualité ou ajouter le post dans la page
+        // Afficher un message de succès
+        alert(data.message || 'Post ajouté avec succès');
+        
+        // Réinitialiser le formulaire
+        document.querySelector('.post-textarea').value = '';
+        document.getElementById('fileInput').value = '';
+        document.getElementById('imagePreview').innerHTML = '';
+        
+        // Fermer la modale si elle existe
+        const postModal = document.getElementById('postModal');
+        if (postModal) {
+            postModal.style.display = 'none';
+        }
+        
+        // Actualiser la page pour afficher le nouveau post
         location.reload();
     })
     .catch(error => {
         console.error("Erreur :", error);
+        alert(error.message || 'Une erreur est survenue lors de l\'ajout du post');
+    })
+    .finally(() => {
+        // Restaurer le bouton
+        submitButton.textContent = originalButtonText;
+        submitButton.disabled = false;
     });
 });
 

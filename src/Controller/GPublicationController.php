@@ -19,7 +19,7 @@ final class GPublicationController extends AbstractController
             
         );
     }
-    #[Route('/acceuil' ,name: 'acceuil', methods: ['GET'])]
+    #[Route('/home' ,name: 'home', methods: ['GET'])]
     public function index(PublicationRepository $publicationRepository): Response
     {
         return $this->render('frontoffice/acceuil.html.twig', [

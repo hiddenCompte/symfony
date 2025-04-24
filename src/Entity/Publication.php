@@ -4,7 +4,10 @@ namespace App\Entity;
 
 use App\Repository\PublicationRepository;
 use Doctrine\DBAL\Types\Types;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PublicationRepository::class)]
 #[ORM\Table(name: "posts")]
@@ -14,8 +17,16 @@ class Publication
     #[ORM\GeneratedValue]
     #[ORM\Column]
       private ?int $post_id = null;
-  
 
+      #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comments::class, orphanRemoval: true)]
+      private Collection $comments;
+  
+      public function __construct()
+      {
+          $this->comments = new ArrayCollection();
+      }
+  
+  
     #[ORM\Column]
     private ?int $user_id = null;
 
@@ -23,6 +34,11 @@ class Publication
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\NotBlank(message: "Le contenu ne peut pas être vide")]
+    #[Assert\Length(
+        min: 5,
+        minMessage: "Le contenu doit contenir au moins {{ limit }} caractères"
+    )]
     private ?string $content = null;
 
     #[ORM\Column(length: 200, nullable: true)]
@@ -31,7 +47,7 @@ class Publication
     #[ORM\Column(type: "datetime")]
      private ?\DateTimeInterface $created_at = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
+    #[ORM\Column(type:'enum', nullable: true)]
     private ?string $categorie = null;
 
 
@@ -115,6 +131,33 @@ class Publication
     public function setCategorie(?string $categorie): static
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comments $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setPost($this); // Important : lie les deux côtés
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comments $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // Désassocier le commentaire de cette publication
+            if ($comment->getPost() === $this) {
+                $comment->setPost(null);
+            }
+        }
 
         return $this;
     }

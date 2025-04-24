@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\CommentsRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CommentsRepository::class)]
+#[ORM\Table(name: "comments")]
 class Comments
 {
     #[ORM\Id]
@@ -13,11 +16,14 @@ class Comments
     #[ORM\Column]
     private ?int $comment_id = null;
 
-    #[ORM\Column]
-    private ?int $post_id = null;
+    #[ORM\ManyToOne(targetEntity: Publication::class, inversedBy: 'comments')]
+    #[ORM\JoinColumn(name: 'post_id', referencedColumnName: 'post_id', nullable: false)]
+    private ?Publication $post = null;
 
-    #[ORM\Column]
-    private ?int $user_id = null;
+   
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'comments')]
+    #[ORM\JoinColumn(name: 'user_id', referencedColumnName: 'user_id', nullable: false)]
+    private ?User $user = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $comment_text = null;
@@ -25,8 +31,42 @@ class Comments
     #[ORM\Column]
     private ?\DateTimeImmutable $created_at = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $parent_id = null;
+#[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'replies')]
+#[ORM\JoinColumn(name: 'parent_id', referencedColumnName: 'comment_id')]
+private ?self $parent_id ;
+
+#[ORM\OneToMany(mappedBy: 'parent_id', targetEntity: self::class, cascade: ['persist', 'remove'])]
+private Collection $replies;
+
+public function __construct()
+{
+    $this->replies = new ArrayCollection();
+}
+public function getReplies(): Collection
+{
+    return $this->replies;
+}
+
+public function addReply(self $reply): self
+{
+    if (!$this->replies->contains($reply)) {
+        $this->replies[] = $reply;
+        $reply->setParentId($this);
+    }
+
+    return $this;
+}
+
+public function removeReply(self $reply): self
+{
+    if ($this->replies->removeElement($reply)) {
+        if ($reply->getParentId() === $this) {
+            $reply->setParentId(null);
+        }
+    }
+
+    return $this;
+}
 
     public function getCommentId(): ?int
     {
@@ -40,27 +80,25 @@ class Comments
         return $this;
     }
 
-    public function getPostId(): ?int
+    public function getPost(): ?Publication
     {
-        return $this->post_id;
+        return $this->post;
     }
 
-    public function setPostId(int $post_id): static
+    public function setPost(?Publication $post): self
     {
-        $this->post_id = $post_id;
-
+        $this->post = $post;
         return $this;
     }
 
-    public function getUserId(): ?int
+    public function getUser(): ?User
     {
-        return $this->user_id;
+        return $this->user;
     }
 
-    public function setUserId(int $user_id): static
+    public function setUser(?User $user): self
     {
-        $this->user_id = $user_id;
-
+        $this->user = $user;
         return $this;
     }
 
@@ -88,15 +126,13 @@ class Comments
         return $this;
     }
 
-    public function getParentId(): ?int
+    public function getParentId(): ?self
     {
         return $this->parent_id;
     }
 
-    public function setParentId(?int $parent_id): static
+    public function setParentId(?self $parent_id): void
     {
         $this->parent_id = $parent_id;
-
-        return $this;
     }
 }

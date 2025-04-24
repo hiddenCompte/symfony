@@ -41,18 +41,18 @@
       <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
-        <a href="{{ path('acceuil') }}">
+        <a href="{{ path('home') }}">
               <h1 class="sitename">iLanding</h1>
         </a>
       </a>
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="#hero" class="active">Home</a></li>
+          <li><a href="{{path('home')}}" class="active">Home</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#features">Features</a></li>
           <li><a href="#services">Services</a></li>
-          <li><a href="#pricing">Mes Publications</a></li>
+          <li><a href="{{ path('user_publications_index')}}">Mes Publications</a></li>
           <li class="dropdown"><a href="#"><span>Dropdown</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
             <ul>
               <li><a href="#">Dropdown 1</a></li>
@@ -81,6 +81,8 @@
   </header>
 
   {% block acceuil %}
+  {% endblock  %}
+  {% block user_publication %}
   {% endblock  %}
  </html>
 

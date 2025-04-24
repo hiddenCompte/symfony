@@ -55,8 +55,8 @@
         {% for comment in comments %}
             <tr>
                 <td>{{ comment.commentId }}</td>
-                <td>{{ comment.postId }}</td>
-                <td>{{ comment.userId }}</td>
+                <td>{{ comment.post.postId }}</td>
+                <td>{{ comment.user.userId }}</td>
                 <td>{{ comment.commentText }}</td>
                 <td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ comment.parentId }}</td>

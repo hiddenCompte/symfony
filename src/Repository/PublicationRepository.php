@@ -15,6 +15,17 @@ class PublicationRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Publication::class);
     }
+    // src/Repository/PublicationRepository.php
+
+public function findAllWithComments()
+{
+    return $this->createQueryBuilder('p')
+        ->leftJoin('p.comments', 'c')  // On fait un JOIN avec la relation 'comments'
+        ->addSelect('c')               // On s'assure que les commentaires soient bien inclus
+        ->getQuery()
+        ->getResult();
+}
+
 
     //    /**
     //     * @return Publication[] Returns an array of Publication objects
