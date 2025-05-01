@@ -208,7 +208,15 @@
                 <small class="publication-date">Publié le {{ publication.createdAt|date('d/m/Y H:i') }}</small>
             </div>
             <div class="publication-actions">
-                <button class="like-button">👍 J'aime</button>
+                <div class="reaction-container">
+                    <button class="like-button" data-post-id="{{ publication.postId }}" >👍 J'aime</button>
+                    <div class="reaction-menu">
+                        <button class="reaction-option" data-reaction="j'adore">❤️</button>
+                        <button class="reaction-option" data-reaction="haha">😆</button>
+                        <button class="reaction-option" data-reaction="wow">😮</button>
+                        <button class="reaction-option" data-reaction="triste">😢</button>
+                    </div>
+                </div>
                 <button class="comment-button" data-post-id="{{ publication.postId }}">💬 Commenter</button>
             </div>
         </div>
@@ -216,6 +224,96 @@
         <p>Aucune publication pour le moment.</p>
     {% endfor %}
 </div>
+<script>
+    // reactions posts 
+    document.querySelectorAll('.reaction-option').forEach(button => {
+        button.addEventListener('click', function () {
+            const reaction = this.getAttribute('data-reaction');  // Récupérer la réaction sélectionnée
+            const postId = document.querySelector('.like-button').getAttribute('data-post-id'); // ID du post, à adapter en fonction du contexte
+
+            // Envoi de la réaction au backend via une requête AJAX
+            fetch('/reactions/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    post_id: postId,
+                    reaction_type: reaction
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Si l'ajout dans la base est réussi, mettre à jour le texte du bouton
+                    document.querySelector('.like-button').innerText = `${reaction} ${reaction === '❤️' ? 'J\'aime' : ''}`;
+                    alert('Réaction ajoutée avec succès!');
+                } else {
+                    alert('Erreur lors de l\'ajout de la réaction.');
+                }
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                alert('Erreur de réseau.');
+            });
+        });
+    });
+</script>
+<style>
+    /* Conteneur pour le bouton et le menu de réactions */
+.reaction-container {
+    position: relative;
+    display: inline-block; /* Permet de positionner le menu par rapport au bouton */
+}
+
+/* Le bouton "J'aime" */
+.like-button {
+    background-color: #4CAF50; /* Couleur du bouton */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+/* Le menu de réactions (invisible par défaut) */
+.reaction-menu {
+    display: none; /* Cacher le menu au départ */
+    position: absolute;
+    bottom: 100%; /* Positionner le menu juste au-dessus du bouton */
+    left: 50%;
+    transform: translateX(-50%); /* Centrer le menu par rapport au bouton */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    z-index: 10; /* Pour que le menu soit au-dessus du bouton */
+}
+
+/* Les options du menu de réaction */
+.reaction-option {
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+/* Apparition du menu de réactions au survol du bouton */
+.reaction-container:hover .reaction-menu {
+    display: flex; /* Afficher le menu */
+    flex-direction: row;
+}
+
+/* Effet sur les options de réaction au survol */
+.reaction-option:hover {
+    background-color: #f0f0f0;
+}
+
+</style>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll(".options-button").forEach(button => {
@@ -291,14 +389,14 @@
             <button class="comment-send-button">➤</button>
         </div>
     </div>
-  </div>
+</div>
 <style>
 
     
    .modal-content {
     position: relative;
     padding-bottom: 100px; /* espace pour l'input */
-    width: 600px; /* ou ce que tu veux */
+    width: 2200px; /* ou ce que tu veux */
     margin: 0 auto; /* centré */
     overflow-y: auto; 
 }
@@ -481,6 +579,7 @@
 </style>
 
 <script>
+    // affichage des commentaire de chaque post 
     document.addEventListener('DOMContentLoaded', () => {
         
         const modal = document.getElementById('publicationModal');
@@ -510,36 +609,176 @@
                 const postId = button.getAttribute('data-post-id');
                 document.querySelector('.comment-send-button').setAttribute('data-post-id', postId);
     
+                
+fetch(`/comments/api/comments/${postId}`)
+    .then(response => response.json())
+    .then(comments => {
+        commentsSection.innerHTML = '<h4>Commentaires</h4>';
+        comments.forEach(comment => {
+            commentsSection.innerHTML += `
+                        
+<div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 15px;">
+    <img src="/path/to/default-profile.png" alt="avatar" style="width: 40px; height: 40px; border-radius: 50%;">
+    <div style="background-color: #f0f2f5; padding: 10px 15px; border-radius: 18px; max-width: 600px;">
+        <strong>${comment.userName}</strong>
+        <p id="comment-text-${comment.comment_id}" style="margin: 5px 0;">${comment.comment_text}</p>
+        <div style="font-size: 12px; color: #666;">
+            ${comment.created_at} • 
+           <div class="reaction-container">
+            <a href="#" class="like-link" data-comment-id="${comment.comment_id }">👍 J'aime</a> •
+                <div class="reaction-menu">
+                    <button class="reaction-option-comment" data-reaction="j'adore">❤️</button>
+                    <button class="reaction-option-comment" data-reaction="haha">😆</button>
+                    <button class="reaction-option-comment" data-reaction="wow">😮</button>
+                    <button class="reaction-option-comment" data-reaction="triste">😢</button>
+                </div>
+            </div>
+            <a href="#" onclick="showReplyInput(${comment.comment_id})"  >Répondre</a> • 
+            <a href="#">Modifier</a> •  
+            <a href="#" class="translate-btn" data-comment-id="${comment.comment_id}">traduire</a> • 
+            <a href="#" style="color: #385898; font-weight: bold;" onclick="toggleReplies(${comment.comment_id})")">
+             Voir les réponses
+             </a>
+        </div>
+        <div id="replies-${comment.comment_id}" style="margin-top: 10px; display: none;">
+         <!-- Les réponses seront chargées ici dynamiquement -->
+       </div>
+       <div id="reply-input-${comment.comment_id}" style="margin-top: 10px;"></div>
+    </div>
+                                    
+    <div class="comments-header">
+                <div class="comments-options">
+                    <div class="options-button-comments">⋯</div>
+                    <div class="options-menu-comments">
+                        <a class ="delete-comment" data-id="${comment.comment_id}">Supprimer</a><br>
+                    </div>
 
-                fetch(`/comments/api/comments/${postId}`)
-                    .then(response => response.json())
-                    .then(comments => {
-                        commentsSection.innerHTML = '<h4>Commentaires</h4>';
-    
-                        comments.forEach(comment => {
-                            commentsSection.innerHTML += `
-                                <div style="display: flex; align-items: flex-start; gap: 10px; margin-bottom: 15px;">
-                                    <img src="/path/to/default-profile.png" alt="avatar" style="width: 40px; height: 40px; border-radius: 50%;">
-                                    <div style="background-color: #f0f2f5; padding: 10px 15px; border-radius: 18px; max-width: 600px;">
-                                        <strong>${comment.userName}</strong>
-                                        <p style="margin: 5px 0;">${comment.comment_text}</p>
-                                        <div style="font-size: 12px; color: #666;">
-                                            ${comment.created_at} • 
-                                            <a href="#">J'aime</a> • 
-                                            <a href="#" onclick="showReplyInput(${comment.comment_id})"  >Répondre</a> • 
-                                            <a href="#">Modifier</a>
-                                            <a href="#" style="color: #385898; font-weight: bold;" onclick="toggleReplies(${comment.comment_id})")">
-                                             Voir les réponses
-                                             </a>
-                                        </div>
-                                        <div id="replies-${comment.comment_id}" style="margin-top: 10px; display: none;">
-                                         <!-- Les réponses seront chargées ici dynamiquement -->
-                                       </div>
-                                       <div id="reply-input-${comment.comment_id}" style="margin-top: 10px;"></div>
-                                    </div>
-                                </div>
-                            `;
+                </div>
+            </div>
+</div>
+                            
+                            `;      
                         });
+                    document.querySelectorAll('.delete-comment').forEach(function(button) {
+    button.addEventListener('click', function(event) {
+        event.preventDefault(); // Empêcher l'action par défaut du bouton
+        
+        // Récupérer l'ID du commentaire directement avec getAttribute sans .value
+        var commentId = button.getAttribute('data-id'); 
+        var deleteUrl = `/comments/delete/${commentId}`; // URL pour la suppression, ajustée pour correspondre à ta route
+        console.log('URL de suppression:', deleteUrl);
+        // Demander une confirmation avant la suppression
+        if (confirm('Êtes-vous sûr de vouloir supprimer ce commentaire ?')) {
+            // Effectuer la requête AJAX avec fetch
+            fetch(deleteUrl, {
+                method: 'POST', // Méthode POST pour la suppression
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'application/json', // Définir le type de contenu
+                },
+                body: JSON.stringify({ id: commentId }) // Envoi de l'ID du commentaire dans le corps de la requête
+            })
+            .then(response => response.json()) 
+            .then(data => {
+                if (data.success) {
+                    // Si la suppression est réussie, retirer dynamiquement le commentaire
+                    button.closest('.comment').remove();
+                   
+                } else {
+                    alert(' Erreur lors de la suppression du commentaire');
+                }
+            })
+            .catch(error => {
+                console.error('Erreur:', error);
+                alert(' Erreur lors de la suppression du commentaire');
+            });
+        }
+    });
+});
+                    
+
+                   // reaction commentaires : 
+                   document.querySelectorAll('.reaction-option-comment').forEach(button => {
+                    button.addEventListener('click', function () {
+                        console.log('click');
+                        const reaction = this.getAttribute('data-reaction');  // Récupérer la réaction sélectionnée
+                        const commentId = this.closest('.reaction-container').querySelector('.like-link').getAttribute('data-comment-id');
+                        console.log('Réaction:', reaction, 'Comment ID:', commentId); 
+                        // Envoi de la réaction au backend via une requête AJAX
+                        fetch('/reactions/add/comment', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                comment_id: commentId,
+                                reaction_type: reaction
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Si l'ajout dans la base est réussi, mettre à jour le texte du bouton
+                                
+                                this.closest('.reaction-container').querySelector('.like-link').innerText = `${reaction} ${reaction === '❤️' ? 'J\'aime' : ''}`;
+
+                                alert('Réaction ajoutée avec succès!');
+                            } else {
+                                alert('Erreur lors de l\'ajout de la réaction.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Erreur:', error);
+                            alert('Erreur de réseau.');
+                        });
+                    });
+                });
+                        //traduction 
+                        setTimeout(() => {
+                            document.querySelectorAll('.translate-btn').forEach(btn => {
+                                btn.addEventListener('click', async function (e) {
+                                    e.preventDefault();
+                        
+                                    const commentId = this.getAttribute('data-comment-id');
+                                    const commentTextElement = document.getElementById(`comment-text-${commentId}`);
+                                    const text = commentTextElement?.innerText;
+                        
+                                    if (!text) {
+                                        alert("Commentaire vide ou introuvable.");
+                                        return;
+                                    }
+                        
+                                    try {
+                                        const sourceLang = "eng"; // auto détection
+                                        const targetLang = "fr";
+                                        const encodedText = encodeURIComponent(text);
+                                        const apiUrl = `https://api.mymemory.translated.net/get?q=${encodedText}&langpair=${sourceLang}|${targetLang}`;
+                        
+                                        const res = await fetch(apiUrl);
+                                        const data = await res.json();
+                        
+                                        const translated = data.responseData?.translatedText ?? "Erreur de traduction.";
+                        
+                                        // Vérifie si l'élément existe déjà pour éviter les doublons
+                                        let translatedEl = document.getElementById(`translated-${commentId}`);
+                                        if (!translatedEl) {
+                                            translatedEl = document.createElement('p');
+                                            translatedEl.id = `translated-${commentId}`;
+                                            translatedEl.style.marginTop = "8px";
+                                            translatedEl.style.fontStyle = "italic";
+                                            commentTextElement.parentNode.appendChild(translatedEl);
+                                        }
+                        
+                                        translatedEl.innerText = translated;
+                        
+                                    } catch (error) {
+                                        console.error("Erreur lors de la traduction :", error);
+                                        alert("Échec de la traduction.");
+                                    }
+                                });
+                            });
+                        }, 100);
+                        // petit délai pour s’assurer que l'élément HTML est bien injecté    
                     })
                     .catch(err => {
                         commentsSection.innerHTML = '<p>Erreur lors du chargement des commentaires.</p>';
@@ -548,7 +787,6 @@
                 modal.classList.remove('hidden');
             });
         });
-
     
         closeBtn.addEventListener('click', () => {
             modal.classList.add('hidden');
@@ -560,7 +798,7 @@
             }
         });
     });
-
+// ajout de commentaire 
     document.querySelector('.comment-send-button').addEventListener('click', () => {
         const postId = document.querySelector('.comment-send-button').getAttribute('data-post-id');
         const commentText = document.querySelector('.comment-text-input').value;
@@ -592,7 +830,7 @@
         });
     });
     
-
+// affichage de input reponse  
     function showReplyInput(commentId) {
         const replyInputDiv = document.getElementById(`reply-input-${commentId}`);
         
@@ -609,7 +847,7 @@
             </button>
         `;
     }
-
+// repondre 
     function submitReply(commentId) {
 
         const replyText = document.getElementById(`reply-text-${commentId}`).value.trim();
@@ -637,7 +875,7 @@
         })
         .catch(error => console.error('Erreur:', error));
     }
-
+// affichage des reponses 
     function toggleReplies(commentId) {
         const repliesDiv = document.getElementById(`replies-${commentId}`);
     
@@ -675,9 +913,7 @@
         });
     }
     
-</script>
 
-<script>
     document.addEventListener('DOMContentLoaded', function() {
         
         // Ouvrir la modal d'édition
@@ -813,6 +1049,94 @@
     });
 </script>
 
+
+<style>
+    .reaction-container {
+        position: relative;
+        display: inline-block;
+    }
+    
+    .reaction-menu {
+        display: none;
+        position: absolute;
+        bottom: 100%; /* Juste au-dessus du lien */
+        left: 50%;
+        transform: translateX(-50%);
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 5px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        z-index: 10;
+    }
+    
+    .reaction-container:hover .reaction-menu {
+        display: flex;
+        gap: 5px;
+    }
+    .reaction-option {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+    }
+    
+</style>
+<style>
+   /* Container des options dans l'en-tête des commentaires */
+.comments-header {
+    position: relative; /* Assure que les éléments sont positionnés relativement dans leur parent */
+}
+
+/* Positionne le bouton "⋯" pour afficher le menu */
+.comments-options {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/* Style du bouton de menu */
+.options-button-comments {
+    cursor: pointer;
+    font-size: 24px; /* Taille du bouton, tu peux l'ajuster */
+    color: #333; /* Couleur du texte du bouton */
+}
+
+/* Style du menu déroulant qui est caché par défaut */
+.options-menu-comments {
+    display: none; /* Masque le menu par défaut */
+    background-color: white;
+    border: 1px solid #ddd;
+    padding: 10px;
+    position: absolute;
+    top: 30px; /* Décalage sous le bouton */
+    right: 0;
+    width: 150px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10; /* S'assure que le menu est au-dessus des autres éléments */
+}
+
+/* Affiche le menu lorsque le bouton ou le menu lui-même est survolé */
+.comments-options:hover .options-menu-comments {
+    display: block;
+}
+
+/* Style des liens dans le menu */
+.options-menu-comments a {
+    color: #333;
+    text-decoration: none;
+    display: block; /* Assure que chaque lien occupe une ligne entière */
+    padding: 5px 0;
+}
+
+/* Changement de couleur des liens au survol */
+.options-menu-comments a:hover {
+    color: #007bff;
+}
+
+    
+</style>
+
 <div class="post-box">
     <form id="postForm" enctype="multipart/form-data">
         <div class="post-input">
@@ -831,6 +1155,7 @@
 </div>
 
 <script>
+    // ajouter une publication 
     document.addEventListener('DOMContentLoaded', function() {
         // ... existing code ...
         

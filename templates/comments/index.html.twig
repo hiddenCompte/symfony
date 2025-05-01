@@ -52,14 +52,15 @@
             </tr>
         </thead>
         <tbody>
-        {% for comment in comments %}
+        {% for comment in pagination %}
             <tr>
                 <td>{{ comment.commentId }}</td>
                 <td>{{ comment.post.postId }}</td>
                 <td>{{ comment.user.userId }}</td>
                 <td>{{ comment.commentText }}</td>
                 <td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ comment.parentId }}</td>
+                <td>{{ comment.parentId ? comment.parentId.commentId : '' }}</td>
+              
                 <td>
                     <a href="{{ path('app_comments_show', {'id': comment.commentId}) }}">show</a>
                     <a href="{{ path('app_comments_edit', {'id': comment.commentId}) }}">edit</a>
@@ -70,10 +71,14 @@
                 <td colspan="8">no records found</td>
             </tr>
         {% endfor %}
+       
         </tbody>
     </table>
 
-    <a href="{{ path('app_comments_new') }}">Create new</a>
+    <a href="{{ path('api_add_comment') }}">Create new</a>
+    <div class="pagination">
+      {{ knp_pagination_render(pagination) }}
+    </div>
 </div>
 <!-- /.card-body -->
 </div>

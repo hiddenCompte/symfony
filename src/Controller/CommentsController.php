@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Comments;
-use App\Entity\User;
 use App\Form\CommentsType;
 use App\Repository\CommentsRepository;
 use App\Repository\PublicationRepository;
@@ -13,19 +12,31 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use App\Controller\Security;
 use App\Repository\UserRepository;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/comments')]
 final class CommentsController extends AbstractController
 {
     #[Route(name: 'app_comments_index', methods: ['GET'])]
-    public function index(CommentsRepository $commentsRepository): Response
-    {
+    public function index(
+        CommentsRepository $commentsRepository,
+        PaginatorInterface $paginator,
+        Request $request
+    ): Response {
+        $comments = $commentsRepository->findAll();
+    
+        $pagination = $paginator->paginate(
+            $comments, // tableau d'entités
+            $request->query->getInt('page', default: 1), // numéro de page
+            28 // nombre par page
+        );
+    
         return $this->render('comments/index.html.twig', [
-            'comments' => $commentsRepository->findAll(),
+            'pagination' => $pagination,
         ]);
     }
+
     #[Route('/api/comments/{postId}', name: 'api_get_comments', methods: ['GET'])]
 public function getComments(int $postId, PublicationRepository $publicationRepository): JsonResponse
 {
@@ -50,7 +61,7 @@ public function getComments(int $postId, PublicationRepository $publicationRepos
     return new JsonResponse($comments);
 }
 
-#[Route('/api/add', name: 'api_add_comment', methods: ['POST','GET'])]
+    #[Route('/api/add', name: 'api_add_comment', methods: ['POST','GET'])]
 public function add(Request $request, EntityManagerInterface $em, PublicationRepository $publicationRepo , UserRepository $userRepo): JsonResponse // Security $security
 {
     
@@ -78,7 +89,8 @@ public function add(Request $request, EntityManagerInterface $em, PublicationRep
 
     return new JsonResponse(['success' => true]);
 }
-#[Route('/comment/reply', name: 'api_add_comment', methods: ['POST','GET'])]
+
+    #[Route('/comment/reply', name: 'api_add_reply', methods: ['POST','GET'])]
 public function addreply(Request $request, EntityManagerInterface $em, CommentsRepository $commentRepo , UserRepository $userRepo): JsonResponse // Security $security
 {
     
@@ -119,7 +131,7 @@ public function addreply(Request $request, EntityManagerInterface $em, CommentsR
     ]);
 }
 
-#[Route('/api/{id}/replies', name: 'comment_replies', methods: ['GET'])]
+    #[Route('/api/{id}/replies', name: 'comment_replies', methods: ['GET'])]
 public function getReplies(int $id, CommentsRepository $commentRepo): JsonResponse
 {
     $parent = $commentRepo->find($id);
@@ -142,17 +154,16 @@ public function getReplies(int $id, CommentsRepository $commentRepo): JsonRespon
     return new JsonResponse(['success' => true, 'replies' => $response]);
 }
 
-
-#[Route('/{id}', name: 'app_comments_show', methods: ['GET'])]
-    public function show(Comments $comment): Response
+    #[Route('/{id}', name: 'app_comments_show', methods: ['GET'])]
+public function show(Comments $comment): Response
     {
         return $this->render('comments/show.html.twig', [
             'comment' => $comment,
         ]);
-    }
+}
 
-    #[Route('/{id}/edit', name: 'app_comments_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Comments $comment, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}/edit', name: 'app_comments_edit', methods: [ 'POST'])]
+public function edit(Request $request, Comments $comment, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(CommentsType::class, $comment);
         $form->handleRequest($request);
@@ -167,16 +178,18 @@ public function getReplies(int $id, CommentsRepository $commentRepo): JsonRespon
             'comment' => $comment,
             'form' => $form,
         ]);
-    }
+}
 
-    #[Route('/{id}', name: 'app_comments_delete', methods: ['POST'])]
-    public function delete(Request $request, Comments $comment, EntityManagerInterface $entityManager): Response
+    #[Route('/delete/{id}', name: 'app_comments_delete', methods: ['GET','POST'])]
+public function delete(Request $request, Comments $comment, EntityManagerInterface $entityManager): JsonResponse
     {
-        if ($this->isCsrfTokenValid('delete'.$comment->getcommentId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($comment);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_comments_index', [], Response::HTTP_SEE_OTHER);
-    }
+        // Supprimer le commentaire de la base de données
+        $entityManager->remove($comment);
+        $entityManager->flush();
+        
+    
+        // Retourner une réponse JSON de succès
+        return new JsonResponse(['success' => true], JsonResponse::HTTP_OK);
+}
+    
 }

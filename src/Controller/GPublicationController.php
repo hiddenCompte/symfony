@@ -13,14 +13,15 @@ final class GPublicationController extends AbstractController
 {
     
     #[Route('/app' ,name: 'app', methods: ['GET'])]
-    public function indexxx(): Response
+public function indexxx(): Response
     {
         return $this->render('frontoffice/iLanding/index.html.twig'
             
         );
-    }
+}
+
     #[Route('/home' ,name: 'home', methods: ['GET'])]
-    public function index(PublicationRepository $publicationRepository): Response
+public function index(PublicationRepository $publicationRepository): Response
     {
         return $this->render('frontoffice/acceuil.html.twig', [
             'publications' => $publicationRepository->findAll(),

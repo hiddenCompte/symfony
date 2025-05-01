@@ -32,7 +32,8 @@
 
 
         <form id="postForm" enctype="multipart/form-data">
-            <textarea placeholder="De quoi souhaitez-vous discuter ?" class="post-textarea"></textarea>
+            <textarea id="postTitle" placeholder="De quoi souhaitez-vous discuter ?" class="post-textarea"></textarea>
+            <div id="suggestedContent" style="color: #555; font-size: 14px; margin-top: 10px;"></div>
             <input type="file" id="fileInput" accept="image/*" style="display: none;">
             <button  type="submit" class="publish-button">Publier</button>
         </form>
@@ -49,7 +50,42 @@
     </div>
   </div>
 
+<script>
+    //API GEMINI
+    document.addEventListener('DOMContentLoaded', () => {
+        const textarea = document.getElementById('postTitle');
+        const suggestedContent = document.getElementById('suggestedContent');
+    
+        let debounceTimer;
+    
+        textarea.addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+    
+            debounceTimer = setTimeout(() => {
+                const title = textarea.value.trim();
+    
+                if (title.length > 5) {
+                    fetch('/api/generate-content', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ title })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        suggestedContent.innerText = data.content;
+                    })
+                    .catch(error => {
+                        suggestedContent.innerText = "Erreur lors de la génération.";
+                        console.error(error);
+                    });
+                }
+            }, 800); // debounce : éviter d'appeler l'API trop souvent
+        });
+    });
 
+</script>
 
 <div class="publication-feed">
     {% for publication in publications %}

@@ -3,11 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Publication;
-use App\Form\PublicationType;
 use App\Repository\PublicationRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Id;
-use LDAP\Result;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,23 +17,21 @@ final class PublicationController extends AbstractController
 {
     private $validator;
 
-    public function __construct(ValidatorInterface $validator)
+public function __construct(ValidatorInterface $validator)
     {
         $this->validator = $validator;
-    }
+}
 
     #[Route(name: 'app_publication_index', methods: ['GET'])]
-    public function index(PublicationRepository $publicationRepository): Response
+public function index(PublicationRepository $publicationRepository): Response
     {
         return $this->render('publication/index.html.twig', [
             'publications' => $publicationRepository->findAllWithComments(),
         ]);
-    }
-    
-    
+}
 
     #[Route('/new', name: 'app_publication_new', methods: ['POST','GET'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         try {
             // Vérifier si la requête est de type POST
@@ -131,9 +126,10 @@ final class PublicationController extends AbstractController
             error_log('Erreur générale: ' . $e->getMessage());
             return new JsonResponse(['error' => 'Une erreur est survenue: ' . $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
-    }
+}
+
     #[Route('/user_publication', name: 'user_publications_index', methods: ['GET'])]
-    public function user_publication_index(PublicationRepository $publicationRepository): Response
+public function user_publication_index(PublicationRepository $publicationRepository): Response
     {
         // Récupérer l'utilisateur connecté
         $userId = 1;
@@ -150,20 +146,18 @@ final class PublicationController extends AbstractController
             'publications' => $publications
         ]);
          
-    }
-
-
+}
 
     #[Route('/{id}', name: 'app_publication_show', methods: ['GET'])]
-    public function show(Publication $publication): Response
+public function show(Publication $publication): Response
     {
         return $this->render('publication/show.html.twig', [
             'publication' => $publication,
         ]);
-    }
+}
 
     #[Route('/{id}/edit', name: 'app_publication_edit', methods: ['GET' , 'POST'], requirements: ['id' => '\d+'])]
-    public function edit(Request $request, Publication $publication, EntityManagerInterface $entityManager): Response
+public function edit(Request $request, Publication $publication, EntityManagerInterface $entityManager): Response
     {
         if ($request->isMethod('GET')) {
             try {
@@ -220,10 +214,10 @@ final class PublicationController extends AbstractController
         }
 
         return new JsonResponse(['error' => 'Méthode non autorisée'], Response::HTTP_METHOD_NOT_ALLOWED);
-    }
+}
 
     #[Route('/{id}', name: 'app_publication_delete', methods: ['POST' ])]
-    public function delete(Request $request, Publication $publication, EntityManagerInterface $entityManager): Response
+public function delete(Request $request, Publication $publication, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$publication->getPostId(), $request->getPayload()->getString('_token'))) {
            
@@ -232,5 +226,6 @@ final class PublicationController extends AbstractController
         }
 
         return $this->redirectToRoute('user_publications_index', [], Response::HTTP_SEE_OTHER);
-    }
+}
+
 }
