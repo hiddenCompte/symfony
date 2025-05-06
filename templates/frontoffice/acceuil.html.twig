@@ -33,8 +33,13 @@
 
         <form id="postForm" enctype="multipart/form-data">
             <textarea id="postTitle" placeholder="De quoi souhaitez-vous discuter ?" class="post-textarea"></textarea>
+            
             <div id="suggestedContent" style="color: #555; font-size: 14px; margin-top: 10px;"></div>
             <input type="file" id="fileInput" accept="image/*" style="display: none;">
+            <!-- localisation --> 
+            <input type="hidden" name="latitude" id="latitude">
+            <input type="hidden" name="longitude" id="longitude">
+
             <button  type="submit" class="publish-button">Publier</button>
         </form>
         <button  class="icon-button" id="addMediaButton">➕</button>
@@ -50,8 +55,11 @@
     </div>
   </div>
 
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  
 <script>
-    //API GEMINI
+    //
     document.addEventListener('DOMContentLoaded', () => {
         const textarea = document.getElementById('postTitle');
         const suggestedContent = document.getElementById('suggestedContent');
@@ -84,7 +92,6 @@
             }, 800); // debounce : éviter d'appeler l'API trop souvent
         });
     });
-
 </script>
 
 <div class="publication-feed">
@@ -171,7 +178,6 @@
 }
 
 </style>
-
 <style>
     .first-publication {
         margin-top: 50px;
@@ -410,7 +416,7 @@
         cursor: pointer;
       }
       
-  </style>
+</style>
 
 
   <script>
@@ -467,15 +473,13 @@
     document.querySelector('.start-post').addEventListener('click', function() {
       
         document.getElementById('postModal').style.display = 'flex';
-      });
-      
-      document.querySelector('.close-modal').addEventListener('click', function() {
+      });  
+    document.querySelector('.close-modal').addEventListener('click', function() {
         document.getElementById('postModal').style.display = 'none';
-      });
-      document.querySelector('.action-button').addEventListener('click', function() {
-     
+    });
+    document.querySelector('.action-button').addEventListener('click', function() {
         document.getElementById('postModal').style.display = 'flex';
-      });
+    });
 
 
       // Ouvre le sélecteur de fichier quand on clique sur le +
@@ -517,6 +521,7 @@ document.getElementById('addMediaButton').addEventListener('click', function() {
     }
     
     formData.append('content', content);
+    
   
     // Ajouter le fichier image s'il existe
     const fileInput = document.getElementById('fileInput');

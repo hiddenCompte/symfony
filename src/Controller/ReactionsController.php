@@ -3,7 +3,6 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Entity\Publication;
 use App\Entity\Reaction;
 use App\Entity\ReactionComment;
 use App\Repository\CommentsRepository;
@@ -18,12 +17,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 #[Route('/reactions')]
 final class ReactionsController extends AbstractController {
 
-    #[Route(name: 'app_reaction_index', methods: ['GET'])]
-    public function index ( ):Response{
+   #[Route(name: 'app_reaction_index', methods: ['GET'])]
+public function index ( ):Response{
             return $this->render('reactions/index.html.twig');
-    }
+}
 
-#[Route('/add' ,name: 'app_reaction_add', methods: ['POST'])]
+   #[Route('/add' ,name: 'app_reaction_add', methods: ['POST'])]
 public function addReaction(Request $request, EntityManagerInterface $em, PublicationRepository $publicationRepo, UserRepository $userRepo): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
@@ -75,9 +74,10 @@ public function addReaction(Request $request, EntityManagerInterface $em, Public
         $em->flush();
 
         return new JsonResponse(['success' => true], JsonResponse::HTTP_OK);
-    }
- #[Route('/add/comment' ,name: 'app_reaction_comment_add', methods: ['POST','GET'])]
-    public function addReactionComment(Request $request, EntityManagerInterface $em, CommentsRepository $commentRepo, UserRepository $userRepo): JsonResponse
+}
+
+   #[Route('/add/comment' ,name: 'app_reaction_comment_add', methods: ['POST','GET'])]
+public function addReactionComment(Request $request, EntityManagerInterface $em, CommentsRepository $commentRepo, UserRepository $userRepo): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
         $commentId = $data['comment_id']; // ID du post
@@ -128,8 +128,6 @@ public function addReaction(Request $request, EntityManagerInterface $em, Public
         $em->flush();
 
         return new JsonResponse(['success' => true], JsonResponse::HTTP_OK);
-    }
-
-
+}
 
 }

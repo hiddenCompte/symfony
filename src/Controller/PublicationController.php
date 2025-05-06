@@ -41,6 +41,7 @@ public function new(Request $request, EntityManagerInterface $entityManager): Re
                 
                 // Récupérer les données du formulaire
                 $content = $request->request->get('content');
+                
                 error_log('Contenu reçu: ' . $content);
                 
                 // Créer un nouveau post
