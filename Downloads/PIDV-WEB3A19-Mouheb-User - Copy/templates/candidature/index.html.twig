@@ -1,0 +1,417 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion des Candidatures{% endblock %}
+{% block page_title %}Liste des Candidatures{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet" />
+<style>
+    :root {
+        --primary-color: #4f46e5;
+        --secondary-color: #dc2626;
+        --primary-light: rgba(79, 70, 229, 0.1);
+        --secondary-light: rgba(220, 38, 38, 0.1);
+        --success-color: #10b981;
+        --success-light: rgba(16, 185, 129, 0.1);
+        --warning-color: #f59e0b;
+        --warning-light: rgba(245, 158, 11, 0.1);
+        --info-color: #0ea5e9;
+        --info-light: rgba(14, 165, 233, 0.1);
+        --danger-color: #dc2626;
+        --danger-light: rgba(220, 38, 38, 0.1);
+    }
+
+    .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        background: #ffffff;
+        transition: all 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+        background-color: white;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        padding: 20px 25px;
+    }
+
+    .card-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin: 0;
+    }
+
+    .search-container {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .search-form {
+        flex-grow: 1;
+        max-width: 400px;
+    }
+
+    .search-group {
+        width: 100%;
+        border-radius: 12px;
+        overflow: hidden;
+        background: #ffffff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+
+    .search-group:hover {
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .search-select {
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 14px 18px;
+        background-color: #f8f9fa;
+        color: #495057;
+        font-weight: 500;
+        font-size: 0.95rem;
+        transition: all 0.2s ease;
+    }
+
+    .search-select:focus {
+        background-color: #f3f4f6;
+        color: #1e293b;
+    }
+
+    .search-input {
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 14px 18px;
+        background-color: #f8f9fa;
+        font-size: 0.95rem;
+        transition: all 0.2s ease;
+    }
+
+    .search-input:focus {
+        background-color: #f3f4f6;
+        color: #1e293b;
+    }
+
+    .search-btn {
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 14px 22px;
+        background-color: var(--primary-color);
+        transition: all 0.3s ease;
+        font-size: 0.95rem;
+        font-weight: 500;
+    }
+
+    .search-btn:hover {
+        background-color: #4338ca;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(67, 56, 202, 0.2);
+    }
+
+    .table {
+        width: 100%;
+        margin-bottom: 0;
+        color: #1e293b;
+    }
+
+    .table th {
+        background-color: #f8f9fa;
+        border-bottom-width: 1px;
+        font-weight: 600;
+        color: #4b5563;
+        vertical-align: middle;
+        padding: 15px;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .table tbody td {
+        vertical-align: middle;
+        padding: 15px;
+        border-color: rgba(0, 0, 0, 0.03);
+    }
+
+    .table tbody tr:hover {
+        background-color: rgba(79, 70, 229, 0.03);
+    }
+
+    .img-thumbnail {
+        border-radius: 8px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        max-width: 100px;
+        height: auto;
+    }
+
+    .img-thumbnail:hover {
+        transform: scale(1.05);
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 8px;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .action-buttons .btn {
+        width: 36px;
+        height: 36px;
+        padding: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+        border: none;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .action-buttons .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    .action-buttons .btn i {
+        font-size: 1.1rem;
+        color: #fff;
+    }
+
+    .action-buttons .btn-info {
+        background-color: #3b82f6;
+    }
+
+    .action-buttons .btn-info:hover {
+        background-color: #2563eb;
+    }
+
+    .action-buttons .btn-warning {
+        background-color: #f59e0b;
+    }
+
+    .action-buttons .btn-warning:hover {
+        background-color: #d97706;
+    }
+
+    .action-buttons .btn-danger {
+        background-color: #dc2626;
+    }
+
+    .action-buttons .btn-danger:hover {
+        background-color: #b91c1c;
+    }
+
+    .sort-icons {
+        display: inline-flex;
+        flex-direction: column;
+        margin-left: 4px;
+        line-height: 0.5;
+    }
+    .sort-icons a {
+        color: #6c757d;
+        font-size: 12px;
+        opacity: 0.5;
+        transition: all 0.2s;
+    }
+    .sort-icons a:hover, .sort-icons a.active {
+        color: #0d6efd;
+        opacity: 1;
+    }
+    .sort-icons i {
+        font-size: 10px;
+    }
+
+    @media (max-width: 768px) {
+        .search-container {
+            flex-direction: column;
+        }
+        
+        .search-form {
+            max-width: 100%;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container-fluid py-4">
+    <div class="card">
+        <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+                <h1 class="card-title">Liste des Candidatures</h1>
+                {% if app.user %}
+                    <a href="{{ path('app_candidature_new', {'userId': app.user.id, 'missionId': missionId}) }}" class="btn btn-primary">
+                        <i class="bi bi-plus-lg"></i> Nouvelle Candidature
+                    </a>
+                {% else %}
+                    <button disabled class="btn btn-primary" title="Connectez-vous pour créer une candidature">
+                        <i class="bi bi-plus-lg"></i> Nouvelle Candidature
+                    </button>
+                {% endif %}
+            </div>
+
+            <div class="search-container mt-3">
+                <form method="get" action="{{ path('app_candidature_index') }}" class="search-form">
+                    <div class="search-group d-flex">
+                        <select name="search_by" class="form-select search-select">
+                            <option value="mission" {% if app.request.query.get('search_by') == 'mission' %}selected{% endif %}>Mission</option>
+                            <option value="user" {% if app.request.query.get('search_by') == 'user' %}selected{% endif %}>Utilisateur</option>
+                            <option value="reponses" {% if app.request.query.get('search_by') == 'reponses' %}selected{% endif %}>Réponses</option>
+                        </select>
+                        <input type="text" name="search" class="form-control search-input" placeholder="Rechercher..." value="{{ app.request.query.get('search') }}">
+                        <button type="submit" class="btn btn-primary search-btn">
+                            <i class="bi bi-search"></i> Rechercher
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Utilisateur</th>
+                            <th>Mission</th>
+                            <th>Image</th>
+                            <th>
+                                Réponses
+                                <a href="{{ path('app_candidature_index', {'sort': 'reponse_asc', 'search': app.request.query.get('search'), 'search_by': app.request.query.get('search_by')}) }}" 
+                                   class="btn btn-link btn-sm p-0 text-decoration-none">
+                                    <i class="bi bi-arrow-up"></i>
+                                </a>
+                                <a href="{{ path('app_candidature_index', {'sort': 'reponse_desc', 'search': app.request.query.get('search'), 'search_by': app.request.query.get('search_by')}) }}"
+                                   class="btn btn-link btn-sm p-0 text-decoration-none">
+                                    <i class="bi bi-arrow-down"></i>
+                                </a>
+                            </th>
+                            <th>Motivation</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for candidature in candidatures %}
+                            <tr>
+                                <td data-label="Utilisateur">
+                                    {% if candidature.user %}
+                                        {{ candidature.user.prenom }} {{ candidature.user.nom }}
+                                    {% else %}
+                                        <span class="text-muted">Utilisateur inconnu</span>
+                                    {% endif %}
+                                </td>
+                                <td data-label="Mission">
+                                    {% if candidature.mission %}
+                                        {{ candidature.mission.titre }}
+                                    {% else %}
+                                        <span class="text-muted">Mission supprimée</span>
+                                    {% endif %}
+                                </td>
+                                <td data-label="Image">
+                                    {% if candidature.image %}
+                                        <img src="{{ asset('uploads/candidatures/' ~ candidature.image) }}?{{ 'now'|date('U') }}" 
+                                             alt="Candidature" 
+                                             width="80" 
+                                             class="img-thumbnail"
+                                             style="max-height: 60px; object-fit: cover;"
+                                             onerror="this.src='{{ asset('uploads/candidatures/default-avatar.png') }}?{{ 'now'|date('U') }}'">
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function() {
+                                                const img = document.querySelector('img[src="{{ asset('uploads/candidatures/' ~ candidature.image) }}"]');
+                                                if (img) {
+                                                    img.onerror = function() {
+                                                        this.src = '{{ asset('uploads/candidatures/default-avatar.png') }}';
+                                                    };
+                                                }
+                                            });
+                                        </script>
+                                    {% else %}
+                                        <span class="text-muted">Aucune image</span>
+                                    {% endif %}
+                                </td>
+                                <td data-label="Réponses">{{ candidature.reponseQuestions|length > 30 ? candidature.reponseQuestions|slice(0, 30) ~ '...' : candidature.reponseQuestions }}</td>
+                                <td data-label="Motivation">{{ candidature.lettreMotivation|length > 30 ? candidature.lettreMotivation|slice(0, 30) ~ '...' : candidature.lettreMotivation }}</td>
+                                <td data-label="Actions" class="text-center">
+                                    <div class="action-buttons">
+                                        <a href="{{ path('app_candidature_show', {'id': candidature.id}) }}" class="btn btn-info" title="Voir">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                        <a href="{{ path('app_candidature_edit', {'id': candidature.id}) }}" class="btn btn-warning" title="Modifier">
+                                            <i class="bi bi-pencil"></i>
+                                        </a>
+                                        <form action="{{ path('app_candidature_delete', {'id': candidature.id}) }}" method="post" style="display:inline;">
+                                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ candidature.id) }}">
+                                            <button type="submit" class="btn btn-danger" title="Supprimer" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette candidature ?');">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="6" class="text-center">
+                                    <div class="alert alert-info my-3">
+                                        {% if app.request.query.get('search') %}
+                                            Aucune candidature trouvée pour "{{ app.request.query.get('search') }}"
+                                        {% else %}
+                                            Aucune candidature disponible
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+// Prevent multiple event listeners
+let isInitialized = false;
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (isInitialized) return;
+    isInitialized = true;
+
+    // Animation pour les boutons d'action
+    const buttons = document.querySelectorAll('.action-buttons .btn');
+    buttons.forEach(btn => {
+        btn.addEventListener('mouseover', function() {
+            this.style.transform = 'scale(1.1)';
+        });
+        btn.addEventListener('mouseout', function() {
+            this.style.transform = '';
+        });
+    });
+    
+    // Gestion des erreurs d'image avec débogage
+    const images = document.querySelectorAll('.img-thumbnail');
+    images.forEach(img => {
+        img.onerror = function() {
+            console.log('Image error for:', this.src);
+            this.src = '{{ asset('uploads/candidatures/default-avatar.png') }}';
+        };
+    });
+
+    // Debug: Log when page is loaded
+    console.log('Page loaded successfully');
+});
+</script>
+{% endblock %}
