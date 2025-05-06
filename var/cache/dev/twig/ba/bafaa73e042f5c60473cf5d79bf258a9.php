@@ -1,0 +1,2729 @@
+<?php
+
+use Twig\Environment;
+use Twig\Error\LoaderError;
+use Twig\Error\RuntimeError;
+use Twig\Extension\CoreExtension;
+use Twig\Extension\SandboxExtension;
+use Twig\Markup;
+use Twig\Sandbox\SecurityError;
+use Twig\Sandbox\SecurityNotAllowedTagError;
+use Twig\Sandbox\SecurityNotAllowedFilterError;
+use Twig\Sandbox\SecurityNotAllowedFunctionError;
+use Twig\Source;
+use Twig\Template;
+use Twig\TemplateWrapper;
+
+/* admin/users.html.twig */
+class __TwigTemplate_06f2f813075b08915a8e6d9eedfbbe4c extends Template
+{
+    private Source $source;
+    /**
+     * @var array<string, Template>
+     */
+    private array $macros = [];
+
+    public function __construct(Environment $env)
+    {
+        parent::__construct($env);
+
+        $this->source = $this->getSourceContext();
+
+        $this->blocks = [
+            'title' => [$this, 'block_title'],
+            'page_title' => [$this, 'block_page_title'],
+            'breadcrumb' => [$this, 'block_breadcrumb'],
+            'stylesheets' => [$this, 'block_stylesheets'],
+            'javascripts' => [$this, 'block_javascripts'],
+            'content' => [$this, 'block_content'],
+        ];
+    }
+
+    protected function doGetParent(array $context): bool|string|Template|TemplateWrapper
+    {
+        // line 2
+        return "admin/base_admin.html.twig";
+    }
+
+    protected function doDisplay(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "admin/users.html.twig"));
+
+        $this->parent = $this->load("admin/base_admin.html.twig", 2);
+        yield from $this->parent->unwrap()->yield($context, array_merge($this->blocks, $blocks));
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+    }
+
+    // line 5
+    /**
+     * @return iterable<null|scalar|\Stringable>
+     */
+    public function block_title(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
+
+        yield "Gestion des utilisateurs";
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        yield from [];
+    }
+
+    // line 8
+    /**
+     * @return iterable<null|scalar|\Stringable>
+     */
+    public function block_page_title(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "page_title"));
+
+        yield "Gestion des utilisateurs";
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        yield from [];
+    }
+
+    // line 10
+    /**
+     * @return iterable<null|scalar|\Stringable>
+     */
+    public function block_breadcrumb(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "breadcrumb"));
+
+        yield "Utilisateurs";
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        yield from [];
+    }
+
+    // line 13
+    /**
+     * @return iterable<null|scalar|\Stringable>
+     */
+    public function block_stylesheets(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "stylesheets"));
+
+        // line 14
+        yield "    ";
+        yield from $this->yieldParentBlock("stylesheets", $context, $blocks);
+        yield "
+    <link rel=\"stylesheet\" href=\"";
+        // line 15
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/css/adminlte-custom.css"), "html", null, true);
+        yield "\">
+    <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css\" rel=\"stylesheet\">
+    <style>
+        .user-actions .btn {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            margin-right: 0.25rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+        }
+        
+        .user-actions .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+        
+        .user-actions .btn-edit {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: #212529;
+        }
+        
+        .user-actions .btn-edit:hover {
+            background-color: #e0a800;
+            border-color: #d39e00;
+        }
+        
+        .user-actions .btn-ban {
+            background-color: #fd7e14;
+            border-color: #fd7e14;
+            color: #fff;
+        }
+        
+        .user-actions .btn-ban:hover {
+            background-color: #e76b00;
+            border-color: #e76b00;
+        }
+        
+        .user-actions .btn-unban {
+            background-color: #20c997;
+            border-color: #20c997;
+            color: #fff;
+        }
+        
+        .user-actions .btn-unban:hover {
+            background-color: #1ba87e;
+            border-color: #1ba87e;
+        }
+        
+        .user-actions .btn-pdf {
+            background-color: #fff;
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+        
+        .user-actions .btn-pdf:hover {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: #fff;
+        }
+        
+        .stats-box {
+            border: 1px solid #dee2e6;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        }
+        
+        .type-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .type-stat:last-child {
+            border-bottom: none;
+        }
+        
+        .type-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .type-freelance {
+            background-color: #e3f2fd;
+            color: #0d6efd;
+        }
+        
+        .type-formateur {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .type-employeur {
+            background-color: #fff3e0;
+            color: #ed6c02;
+        }
+        
+        .header-actions .btn {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            margin-right: 0.25rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+        }
+        
+        .header-actions .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+        
+        .header-actions .btn-stats {
+            background-color: #fff;
+            border-color: #0d6efd;
+            color: #0d6efd;
+        }
+        
+        .header-actions .btn-stats:hover {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+            color: #fff;
+        }
+        
+        .header-actions .btn-add {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+            color: #fff;
+        }
+        
+        .header-actions .btn-add:hover {
+            background-color: #0b5ed7;
+            border-color: #0a58ca;
+        }
+        
+        .header-actions .btn-pdf {
+            background-color: #fff;
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+        
+        .header-actions .btn-pdf:hover {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: #fff;
+        }
+        
+        .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            text-align: center;
+            min-width: 80px;
+        }
+        
+        .status-active {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            border: 1px solid #badbcc;
+        }
+        
+        .status-banned {
+            background-color: #f8d7da;
+            color: #842029;
+            border: 1px solid #f5c2c7;
+        }
+        
+        .user-table-container {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+        
+        .user-table {
+            width: 100%;
+            table-layout: fixed;
+        }
+        
+        .user-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+        
+        .user-table th:nth-child(1), /* Nom */
+        .user-table th:nth-child(2) { /* Prénom */
+            width: 12%;
+        }
+        
+        .user-table th:nth-child(3) { /* Email */
+            width: 18%;
+        }
+        
+        .user-table th:nth-child(4), /* Téléphone */
+        .user-table th:nth-child(5), /* Type */
+        .user-table th:nth-child(6) { /* Statut */
+            width: 10%;
+        }
+        
+        .user-table th:nth-child(7) { /* Date */
+            width: 12%;
+        }
+        
+        .user-table th:nth-child(8) { /* Actions */
+            width: 16%;
+        }
+    </style>
+";
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        yield from [];
+    }
+
+    // line 227
+    /**
+     * @return iterable<null|scalar|\Stringable>
+     */
+    public function block_javascripts(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
+
+        // line 228
+        yield "    ";
+        yield from $this->yieldParentBlock("javascripts", $context, $blocks);
+        yield "
+    <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js\"></script>
+    <script src=\"https://cdn.jsdelivr.net/npm/chart.js\"></script>
+    <script>
+    // Fonction de recherche dynamique, de tri et de statistiques
+    document.addEventListener('DOMContentLoaded', function() {
+        // Gérer l'affichage des statistiques lors du clic sur le bouton
+        const showStatsBtn = document.getElementById('showStatsBtn');
+        const statsSection = document.getElementById('statsSection');
+        
+        let chartInstance = null;
+        let statsGenerated = false;
+        
+        if (showStatsBtn && statsSection) {
+            showStatsBtn.addEventListener('click', function() {
+                // Basculer l'affichage de la section des statistiques
+                if (statsSection.style.display === 'none') {
+                    statsSection.style.display = 'block';
+                    showStatsBtn.innerHTML = '<i class=\"bi bi-x-lg me-1\"></i>Fermer';
+                    showStatsBtn.classList.remove('btn-stats');
+                    showStatsBtn.classList.add('btn-stats-close');
+                    
+                    // Générer les statistiques uniquement si elles n'ont pas encore été générées
+                    if (!statsGenerated) {
+                        generateStats();
+                        statsGenerated = true;
+                    }
+                } else {
+                    statsSection.style.display = 'none';
+                    showStatsBtn.innerHTML = '<i class=\"bi bi-bar-chart-fill me-1\"></i>Stats';
+                    showStatsBtn.classList.remove('btn-stats-close');
+                    showStatsBtn.classList.add('btn-stats');
+                }
+            });
+        }
+        
+        // Fonction pour générer les statistiques
+        function generateStats() {
+            // Préparation des données pour les statistiques par type
+            const userRows = document.querySelectorAll('tbody tr');
+            const userTypes = {};
+            let totalUsers = 0;
+            
+            userRows.forEach(row => {
+                const typeCell = row.querySelector('td:nth-child(5)');
+                if (typeCell) {
+                    const type = typeCell.textContent.trim().toLowerCase();
+                    if (!userTypes[type]) {
+                        userTypes[type] = 0;
+                    }
+                    userTypes[type]++;
+                    totalUsers++;
+                }
+            });
+            
+            // Création du graphique
+            if (document.getElementById('userTypeChart')) {
+                const ctx = document.getElementById('userTypeChart').getContext('2d');
+                
+                // Préparation des données pour Chart.js
+                const typeLabels = Object.keys(userTypes).map(type => type.charAt(0).toUpperCase() + type.slice(1));
+                const typeCounts = Object.values(userTypes);
+                const backgroundColors = [
+                    'rgba(13, 110, 253, 0.7)',  // Bleu pour freelance
+                    'rgba(46, 125, 50, 0.7)',   // Vert pour formateur
+                    'rgba(237, 108, 2, 0.7)'    // Orange pour employeur
+                ];
+                
+                // Détruire le graphique existant s'il y en a un
+                if (chartInstance) {
+                    chartInstance.destroy();
+                }
+                
+                // Créer un nouveau graphique
+                chartInstance = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: typeLabels,
+                        datasets: [{
+                            data: typeCounts,
+                            backgroundColor: backgroundColors,
+                            borderColor: '#ffffff',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: {
+                                    font: {
+                                        size: 12
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const label = context.label || '';
+                                        const value = context.raw || 0;
+                                        const percentage = Math.round((value / totalUsers) * 100);
+                                        return `\${label}: \${value} (\${percentage}%)`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Affichage des statistiques textuelles
+            const statsContainer = document.getElementById('userTypeStats');
+            if (statsContainer) {
+                let statsHTML = '';
+                
+                Object.entries(userTypes).forEach(([type, count]) => {
+                    const percentage = Math.round((count / totalUsers) * 100);
+                    const typeClass = `type-\${type}`;
+                    
+                    statsHTML += `
+                    <div class=\"type-stat\">
+                        <div>
+                            <span class=\"type-badge \${typeClass}\">\${type.charAt(0).toUpperCase() + type.slice(1)}</span>
+                        </div>
+                        <div>
+                            <strong>\${count}</strong> utilisateurs <small>(\${percentage}%)</small>
+                        </div>
+                    </div>`;
+                });
+                
+                statsHTML += `
+                <div class=\"type-stat mt-2\">
+                    <div><strong>Total</strong></div>
+                    <div><strong>\${totalUsers}</strong> utilisateurs</div>
+                </div>`;
+                
+                statsContainer.innerHTML = statsHTML;
+            }
+        }
+        const searchInput = document.getElementById('searchInput');
+        const sortOldestFirst = document.getElementById('sortOldestFirst');
+        const sortNewestFirst = document.getElementById('sortNewestFirst');
+        const userTable = document.querySelector('table.table');
+        const tbody = userTable ? userTable.querySelector('tbody') : null;
+        
+        // Fonction pour trier les lignes du tableau
+        function sortTableRows(ascending = true) {
+            if (!tbody) return;
+            
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            // Trier les lignes par date d'inscription
+            rows.sort((a, b) => {
+                const dateA = parseInt(a.getAttribute('data-date-inscription') || '0');
+                const dateB = parseInt(b.getAttribute('data-date-inscription') || '0');
+                
+                return ascending ? dateA - dateB : dateB - dateA;
+            });
+            
+            // Réorganiser les lignes dans le DOM
+            rows.forEach(row => {
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Recherche par nom ou prénom
+        if (searchInput) {
+            searchInput.addEventListener('keyup', function() {
+                const searchValue = this.value.toLowerCase();
+                const adminRows = document.querySelectorAll('.admin-table tbody tr');
+                const userRows = document.querySelectorAll('.users-table tbody tr');
+                
+                // Fonction pour filtrer les lignes
+                function filterRows(rows) {
+                    rows.forEach(row => {
+                        const nameCell = row.querySelector('td:nth-child(1)');
+                        const firstNameCell = row.querySelector('td:nth-child(2)');
+                        
+                        const name = nameCell ? nameCell.textContent.toLowerCase() : '';
+                        const firstName = firstNameCell ? firstNameCell.textContent.toLowerCase() : '';
+                        
+                        // Recherche à la fois dans le nom et le prénom
+                        if (name.includes(searchValue) || firstName.includes(searchValue)) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                }
+                
+                // Appliquer le filtre aux deux tableaux
+                filterRows(adminRows);
+                filterRows(userRows);
+            });
+        }
+        
+        // Tri par date d'inscription via le select
+        const sortSelect = document.getElementById('sortSelect');
+        if (sortSelect) {
+            sortSelect.addEventListener('change', function() {
+                const value = this.value;
+                
+                if (value === 'oldest') {
+                    sortTableRows(true); // Tri ascendant (plus anciens d'abord)
+                } else if (value === 'newest') {
+                    sortTableRows(false); // Tri descendant (plus récents d'abord)
+                }
+                // Si 'none' est sélectionné, on ne fait rien (pas de tri)
+            });
+        }
+    });
+    
+    // Fonction JavaScript pour la mise à jour d'un utilisateur via AJAX
+    async function updateUser(event, userId) {
+        try {
+            const form = document.getElementById(`editUserForm\${userId}`);
+            if (!form) {
+                throw new Error('Formulaire non trouvé');
+            }
+
+            // Supprimer les anciennes alertes
+            form.querySelectorAll('.alert').forEach(alert => alert.remove());
+            document.querySelectorAll('.alert-ajax').forEach(alert => alert.remove());
+
+            // Désactiver le bouton de soumission
+            const submitButton = form.querySelector('button.btn-primary');
+            if (!submitButton) {
+                throw new Error('Bouton de soumission non trouvé');
+            }
+
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> Enregistrement...';
+
+            // Préparer les données
+            const formData = new FormData();
+            const fields = {
+                '_token': 'input[name=\"_token\"]',
+                'nom': 'input[name=\"nom\"]',
+                'prenom': 'input[name=\"prenom\"]',
+                'email': 'input[name=\"email\"]',
+                'password': 'input[name=\"password\"]',
+                'type_utilisateur': 'select[name=\"type_utilisateur\"]',
+                'telephone': 'input[name=\"telephone\"]'
+            };
+            
+            // Ajouter les conditions d'utilisation automatiquement
+            formData.append('conditions', 'on');
+
+            // Vérifier et ajouter chaque champ
+            for (const [key, selector] of Object.entries(fields)) {
+                const element = form.querySelector(selector);
+                if (!element) {
+                    throw new Error(`Champ \${key} non trouvé`);
+                }
+                formData.append(key, element.value);
+            }
+
+            // Construire l'URL de l'API
+            const url = `";
+        // line 488
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("api_user_edit", ["id" => "__USER_ID__"]);
+        yield "`.replace('__USER_ID__', userId);
+
+            console.log('Envoi de la requête à URL:', url);
+            console.log('Données du formulaire:', Object.fromEntries(formData.entries()));
+            
+            // Envoyer la requête
+            const response = await fetch(url, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
+                },
+                // S'assurer que les cookies sont envoyés avec la requête
+                credentials: 'same-origin'
+            });
+
+            // Vérifier d'abord le type de contenu
+            const contentType = response.headers.get('content-type');
+            console.log('Type de contenu de la réponse:', contentType);
+            
+            // Récupérer la réponse
+            let data;
+            if (contentType && contentType.includes('application/json')) {
+                try {
+                    data = await response.json();
+                    console.log('Réponse JSON reçue:', data);
+                } catch (jsonError) {
+                    console.error('Erreur lors du parsing JSON:', jsonError);
+                    throw new Error(`Erreur lors du parsing de la réponse JSON: \${jsonError.message}`);
+                }
+            } else {
+                // Si ce n'est pas du JSON, récupérer le texte
+                const text = await response.text();
+                console.error('Réponse non-JSON reçue:', {
+                    status: response.status,
+                    statusText: response.statusText,
+                    contentType: contentType,
+                    body: text,
+                    url: url
+                });
+                throw new Error(`Réponse invalide du serveur (Status: \${response.status}, Content-Type: \${contentType || 'non défini'})`);
+            }
+
+            // Vérifier si la réponse est OK
+            if (!response.ok) {
+                throw new Error(data.message || `Erreur HTTP: \${response.status} \${response.statusText}`);
+            }
+
+            if (!data.success) {
+                throw new Error(data.message || 'Erreur lors de la modification');
+            }
+
+            // Redirection simple vers la page des utilisateurs
+            window.location.href = \"";
+        // line 542
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin_users");
+        yield "\";
+
+
+
+            // Réinitialiser le mot de passe
+            const passwordInput = form.querySelector('input[name=\"password\"]');
+            if (passwordInput) {
+                passwordInput.value = '';
+            }
+
+        } catch (error) {
+            console.error('Erreur lors de la modification:', error);
+            
+            // Afficher l'erreur dans le formulaire
+            const form = document.getElementById(`editUserForm\${userId}`);
+            if (form) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'alert alert-danger';
+                errorDiv.textContent = error.message;
+                form.insertBefore(errorDiv, form.firstChild);
+            }
+            
+            // Afficher également l'erreur en haut de la page
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'alert alert-danger alert-dismissible fade show alert-ajax';
+            alertDiv.innerHTML = `
+                Erreur: \${error.message}
+                <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>
+            `;
+            const container = document.querySelector('.container-fluid');
+            const card = document.querySelector('.card');
+            if (container && card) {
+                container.insertBefore(alertDiv, card);
+                setTimeout(() => alertDiv.remove(), 5000);
+            }
+        } finally {
+            // Réactiver le bouton de soumission
+            const form = document.getElementById(`editUserForm\${userId}`);
+            if (form) {
+                const submitButton = form.querySelector('button.btn-primary');
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = 'Enregistrer les modifications';
+                }
+            }
+        }
+    }
+    
+    // Fonction pour bannir/débannir un utilisateur
+    function toggleUserStatus(userId, isActive) {
+        // Désactiver le bouton pour éviter les clics multiples
+        const button = event.target;
+        button.disabled = true;
+        button.innerHTML = '<span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> Traitement...';
+        
+        // Préparer les données et l'URL
+        const url = `/admin/api/user/\${userId}/toggle-status`;
+        
+        // Envoi de la requête en arrière-plan
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ isActive: isActive })
+        });
+        
+        // Fermer le modal immédiatement
+        const modalId = isActive ? `unbanUserModal\${userId}` : `banUserModal\${userId}`;
+        const modalElement = document.getElementById(modalId);
+        if (modalElement) {
+            const modal = bootstrap.Modal.getInstance(modalElement);
+            if (modal) {
+                modal.hide();
+            }
+        }
+        
+        // Rafraîchir la page immédiatement
+        window.location.reload();
+    }
+    </script>
+";
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        yield from [];
+    }
+
+    // line 625
+    /**
+     * @return iterable<null|scalar|\Stringable>
+     */
+    public function block_content(array $context, array $blocks = []): iterable
+    {
+        $macros = $this->macros;
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "content"));
+
+        // line 626
+        yield "    <div class=\"container-fluid\">
+        ";
+        // line 627
+        $context['_parent'] = $context;
+        $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 627, $this->source); })()), "flashes", [], "any", false, false, false, 627));
+        foreach ($context['_seq'] as $context["label"] => $context["messages"]) {
+            // line 628
+            yield "            ";
+            $context['_parent'] = $context;
+            $context['_seq'] = CoreExtension::ensureTraversable($context["messages"]);
+            foreach ($context['_seq'] as $context["_key"] => $context["message"]) {
+                // line 629
+                yield "                <div class=\"alert alert-";
+                yield ((($context["label"] == "error")) ? ("danger") : ($this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["label"], "html", null, true)));
+                yield " alert-dismissible fade show\" role=\"alert\">
+                    ";
+                // line 630
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["message"], "html", null, true);
+                yield "
+                    <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>
+                </div>
+            ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_key'], $context['message'], $context['_parent']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 634
+            yield "        ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['label'], $context['messages'], $context['_parent']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 635
+        yield "        <div class=\"card\">
+            <div class=\"card-header\">
+                <div class=\"d-flex justify-content-between align-items-center mb-2\">
+                    <h3 class=\"card-title\">Liste des utilisateurs</h3>
+                    <div class=\"header-actions\">
+                        <button id=\"showStatsBtn\" class=\"btn btn-stats\" title=\"Afficher les statistiques\">
+                            <i class=\"bi bi-bar-chart-fill me-1\"></i>Stats
+                        </button>
+                        <button class=\"btn btn-add\" data-bs-toggle=\"modal\" data-bs-target=\"#addUserModal\" title=\"Ajouter un utilisateur\">
+                            <i class=\"bi bi-person-plus-fill me-1\"></i>Ajouter
+                        </button>
+                        <!-- Bouton pour générer un PDF de tous les utilisateurs -->
+                        <a href=\"";
+        // line 647
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin_users_pdf");
+        yield "\" class=\"btn btn-pdf\" target=\"_blank\" title=\"Générer PDF\">
+                            <i class=\"bi bi-file-pdf-fill me-1\"></i>PDF
+                        </a>
+                    </div>
+                </div>
+                <div class=\"row mt-3\">
+                    <div class=\"col-md-8\">
+                        <div class=\"input-group\">
+                            <span class=\"input-group-text\"><i class=\"bi bi-search\"></i></span>
+                            <input type=\"text\" id=\"searchInput\" class=\"form-control\" placeholder=\"Rechercher par nom ou prénom...\" aria-label=\"Rechercher\">
+                            <select id=\"sortSelect\" class=\"form-select\" style=\"max-width: 150px;\">
+                                <option value=\"none\" selected>Trier par date</option>
+                                <option value=\"oldest\">Plus ancien</option>
+                                <option value=\"newest\">Plus récent</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section des statistiques par type d'utilisateur (masquée par défaut) -->
+            <div id=\"statsSection\" class=\"card-body border-bottom\" style=\"display: none;\">
+                <div class=\"row\">
+                    <div class=\"col-md-8\">
+                        <h5 class=\"mb-3\">Statistiques par type d'utilisateur</h5>
+                        <div class=\"chart-container\" style=\"position: relative; height:250px;\">
+                            <canvas id=\"userTypeChart\"></canvas>
+                        </div>
+                    </div>
+                    <div class=\"col-md-4\">
+                        <div class=\"mt-4\">
+                            <div class=\"stats-box p-3 rounded mb-2 bg-light\">
+                                <h6 class=\"mb-2\">Répartition des utilisateurs</h6>
+                                <div id=\"userTypeStats\" class=\"mt-3\">
+                                    <!-- Les statistiques seront insérées ici par JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=\"card-body\">
+                <!-- Tableau des administrateurs -->
+                <h4 class=\"mb-3\">Administrateurs</h4>
+                <div class=\"user-table-container\">
+                    <table class=\"table table-bordered table-striped admin-table user-table\">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Email</th>
+                                <th>Téléphone</th>
+                                <th>Type</th>
+                                <th>Statut</th>
+                                <th>Date d'inscription</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ";
+        // line 706
+        $context['_parent'] = $context;
+        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["users"]) || array_key_exists("users", $context) ? $context["users"] : (function () { throw new RuntimeError('Variable "users" does not exist.', 706, $this->source); })()));
+        foreach ($context['_seq'] as $context["_key"] => $context["user"]) {
+            // line 707
+            yield "                                ";
+            if (((CoreExtension::getAttribute($this->env, $this->source, $context["user"], "typeUtilisateur", [], "any", false, false, false, 707) == "admin") || (CoreExtension::getAttribute($this->env, $this->source, $context["user"], "typeUtilisateur", [], "any", false, false, false, 707) == "ROLE_ADMIN"))) {
+                // line 708
+                yield "                                <tr data-user-id=\"";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 708), "html", null, true);
+                yield "\" data-date-inscription=\"";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "dateInscription", [], "any", false, false, false, 708), "U"), "html", null, true);
+                yield "\">
+                                    <td>";
+                // line 709
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "nom", [], "any", false, false, false, 709), "html", null, true);
+                yield "</td>
+                                    <td>";
+                // line 710
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "prenom", [], "any", false, false, false, 710), "html", null, true);
+                yield "</td>
+                                    <td>";
+                // line 711
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "email", [], "any", false, false, false, 711), "html", null, true);
+                yield "</td>
+                                    <td>";
+                // line 712
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "telephone", [], "any", false, false, false, 712), "html", null, true);
+                yield "</td>
+                                    <td>";
+                // line 713
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "typeUtilisateur", [], "any", false, false, false, 713), "html", null, true);
+                yield "</td>
+                                    <td>
+                                        ";
+                // line 715
+                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["user"], "isActive", [], "any", false, false, false, 715)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                    // line 716
+                    yield "                                            <span class=\"status-badge status-active\">Actif</span>
+                                        ";
+                } else {
+                    // line 718
+                    yield "                                            <span class=\"status-badge status-banned\">Banni</span>
+                                        ";
+                }
+                // line 720
+                yield "                                    </td>
+                                    <td>";
+                // line 721
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "dateInscription", [], "any", false, false, false, 721), "d/m/Y H:i"), "html", null, true);
+                yield "</td>
+                                    <td class=\"user-actions\">
+                                        <button type=\"button\" class=\"btn btn-edit\" data-bs-toggle=\"modal\" data-bs-target=\"#editUserModal";
+                // line 723
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 723), "html", null, true);
+                yield "\" title=\"Modifier\">
+                                            <i class=\"bi bi-pencil-fill\"></i>
+                                        </button>
+
+                                        <!-- Modal d'édition pour l'utilisateur ";
+                // line 727
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 727), "html", null, true);
+                yield " -->
+                                        <div class=\"modal fade\" id=\"editUserModal";
+                // line 728
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 728), "html", null, true);
+                yield "\" tabindex=\"-1\" aria-labelledby=\"editUserModalLabel";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 728), "html", null, true);
+                yield "\" aria-hidden=\"true\">
+                                            <div class=\"modal-dialog\">
+                                                <div class=\"modal-content\">
+                                                    <div class=\"modal-header\">
+                                                        <h5 class=\"modal-title\" id=\"editUserModalLabel";
+                // line 732
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 732), "html", null, true);
+                yield "\">Modifier l'utilisateur</h5>
+                                                        <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>
+                                                    </div>
+                                                    <div class=\"modal-body\">
+                                                        <form id=\"editUserForm";
+                // line 736
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 736), "html", null, true);
+                yield "\">
+                                                            <input type=\"hidden\" name=\"_token\" value=\"";
+                // line 737
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken(("edit" . CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 737))), "html", null, true);
+                yield "\">
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"nom";
+                // line 739
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 739), "html", null, true);
+                yield "\" class=\"form-label\">Nom</label>
+                                                                <input type=\"text\" class=\"form-control\" id=\"nom";
+                // line 740
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 740), "html", null, true);
+                yield "\" name=\"nom\" value=\"";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "nom", [], "any", false, false, false, 740), "html", null, true);
+                yield "\" readonly>
+                                                                <small class=\"form-text text-muted\">Seul l'utilisateur peut modifier son nom</small>
+                                                            </div>
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"prenom";
+                // line 744
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 744), "html", null, true);
+                yield "\" class=\"form-label\">Prénom</label>
+                                                                <input type=\"text\" class=\"form-control\" id=\"prenom";
+                // line 745
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 745), "html", null, true);
+                yield "\" name=\"prenom\" value=\"";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "prenom", [], "any", false, false, false, 745), "html", null, true);
+                yield "\" readonly>
+                                                                <small class=\"form-text text-muted\">Seul l'utilisateur peut modifier son prénom</small>
+                                                            </div>
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"email";
+                // line 749
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 749), "html", null, true);
+                yield "\" class=\"form-label\">Email</label>
+                                                                <input type=\"email\" class=\"form-control\" id=\"email";
+                // line 750
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 750), "html", null, true);
+                yield "\" name=\"email\" value=\"";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "email", [], "any", false, false, false, 750), "html", null, true);
+                yield "\" readonly>
+                                                                <small class=\"form-text text-muted\">Seul l'utilisateur peut modifier son email</small>
+                                                            </div>
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"password";
+                // line 754
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 754), "html", null, true);
+                yield "\" class=\"form-label\">Mot de passe</label>
+                                                                <input type=\"password\" class=\"form-control\" id=\"password";
+                // line 755
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 755), "html", null, true);
+                yield "\" name=\"password\" placeholder=\"Modification non autorisée\" disabled>
+                                                                <small class=\"form-text text-muted\">Seul l'utilisateur peut modifier son mot de passe</small>
+                                                            </div>
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"type_utilisateur";
+                // line 759
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 759), "html", null, true);
+                yield "\" class=\"form-label\">Type d'utilisateur</label>
+                                                                <select class=\"form-select\" id=\"type_utilisateur";
+                // line 760
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 760), "html", null, true);
+                yield "\" name=\"type_utilisateur\" required>
+                                                                    <option value=\"admin\" ";
+                // line 761
+                yield ((((CoreExtension::getAttribute($this->env, $this->source, $context["user"], "typeUtilisateur", [], "any", false, false, false, 761) == "admin") || (CoreExtension::getAttribute($this->env, $this->source, $context["user"], "typeUtilisateur", [], "any", false, false, false, 761) == "ROLE_ADMIN"))) ? ("selected") : (""));
+                yield ">Administrateur</option>
+                                                                    <option value=\"freelance\" ";
+                // line 762
+                yield (((CoreExtension::getAttribute($this->env, $this->source, $context["user"], "typeUtilisateur", [], "any", false, false, false, 762) == "freelance")) ? ("selected") : (""));
+                yield ">Freelance</option>
+                                                                    <option value=\"formateur\" ";
+                // line 763
+                yield (((CoreExtension::getAttribute($this->env, $this->source, $context["user"], "typeUtilisateur", [], "any", false, false, false, 763) == "formateur")) ? ("selected") : (""));
+                yield ">Formateur</option>
+                                                                    <option value=\"employeur\" ";
+                // line 764
+                yield (((CoreExtension::getAttribute($this->env, $this->source, $context["user"], "typeUtilisateur", [], "any", false, false, false, 764) == "employeur")) ? ("selected") : (""));
+                yield ">Employeur</option>
+                                                                </select>
+                                                                <small class=\"form-text text-muted\">Seul champ modifiable par l'administrateur</small>
+                                                            </div>
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"telephone";
+                // line 769
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 769), "html", null, true);
+                yield "\" class=\"form-label\">Téléphone</label>
+                                                                <input type=\"tel\" class=\"form-control\" id=\"telephone";
+                // line 770
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 770), "html", null, true);
+                yield "\" name=\"telephone\" value=\"";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "telephone", [], "any", false, false, false, 770), "html", null, true);
+                yield "\" readonly>
+                                                                <small class=\"form-text text-muted\">Seul l'utilisateur peut modifier son téléphone</small>
+                                                            </div>
+
+                                                            <div class=\"modal-footer\">
+                                                                <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Fermer</button>
+                                                                <button type=\"button\" class=\"btn btn-primary\" onclick=\"updateUser(event, ";
+                // line 776
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 776), "html", null, true);
+                yield ")\">Enregistrer les modifications</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        ";
+                // line 783
+                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["user"], "isActive", [], "any", false, false, false, 783)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                    // line 784
+                    yield "                                            <button class=\"btn btn-ban\" data-bs-toggle=\"modal\" data-bs-target=\"#banUserModal";
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 784), "html", null, true);
+                    yield "\" title=\"Bannir\">
+                                                <i class=\"bi bi-slash-circle-fill\"></i>
+                                            </button>
+                                        ";
+                } else {
+                    // line 788
+                    yield "                                            <button class=\"btn btn-unban\" data-bs-toggle=\"modal\" data-bs-target=\"#unbanUserModal";
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 788), "html", null, true);
+                    yield "\" title=\"Débannir\">
+                                                <i class=\"bi bi-check-circle-fill\"></i>
+                                            </button>
+                                        ";
+                }
+                // line 792
+                yield "                                        <!-- Bouton pour générer un PDF pour cet utilisateur -->
+                                        <a href=\"";
+                // line 793
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin_user_pdf", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 793)]), "html", null, true);
+                yield "\" class=\"btn btn-pdf\" target=\"_blank\" title=\"Générer PDF\">
+                                            <i class=\"bi bi-file-pdf-fill\"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                ";
+            }
+            // line 799
+            yield "                            ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_key'], $context['user'], $context['_parent']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 800
+        yield "                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Tableau des utilisateurs normaux -->
+                <h4 class=\"mb-3\">Utilisateurs</h4>
+                <div class=\"user-table-container\">
+                    <table class=\"table table-bordered table-striped users-table user-table\">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Email</th>
+                                <th>Téléphone</th>
+                                <th>Type</th>
+                                <th>Statut</th>
+                                <th>Date d'inscription</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ";
+        // line 821
+        $context['_parent'] = $context;
+        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["users"]) || array_key_exists("users", $context) ? $context["users"] : (function () { throw new RuntimeError('Variable "users" does not exist.', 821, $this->source); })()));
+        foreach ($context['_seq'] as $context["_key"] => $context["user"]) {
+            // line 822
+            yield "                                ";
+            if (((CoreExtension::getAttribute($this->env, $this->source, $context["user"], "typeUtilisateur", [], "any", false, false, false, 822) != "admin") && (CoreExtension::getAttribute($this->env, $this->source, $context["user"], "typeUtilisateur", [], "any", false, false, false, 822) != "ROLE_ADMIN"))) {
+                // line 823
+                yield "                                <tr data-user-id=\"";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 823), "html", null, true);
+                yield "\" data-date-inscription=\"";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "dateInscription", [], "any", false, false, false, 823), "U"), "html", null, true);
+                yield "\">
+                                    <td>";
+                // line 824
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "nom", [], "any", false, false, false, 824), "html", null, true);
+                yield "</td>
+                                    <td>";
+                // line 825
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "prenom", [], "any", false, false, false, 825), "html", null, true);
+                yield "</td>
+                                    <td>";
+                // line 826
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "email", [], "any", false, false, false, 826), "html", null, true);
+                yield "</td>
+                                    <td>";
+                // line 827
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "telephone", [], "any", false, false, false, 827), "html", null, true);
+                yield "</td>
+                                    <td>";
+                // line 828
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "typeUtilisateur", [], "any", false, false, false, 828), "html", null, true);
+                yield "</td>
+                                    <td>
+                                        ";
+                // line 830
+                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["user"], "isActive", [], "any", false, false, false, 830)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                    // line 831
+                    yield "                                            <span class=\"status-badge status-active\">Actif</span>
+                                        ";
+                } else {
+                    // line 833
+                    yield "                                            <span class=\"status-badge status-banned\">Banni</span>
+                                        ";
+                }
+                // line 835
+                yield "                                    </td>
+                                    <td>";
+                // line 836
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "dateInscription", [], "any", false, false, false, 836), "d/m/Y H:i"), "html", null, true);
+                yield "</td>
+                                    <td class=\"user-actions\">
+                                        <button type=\"button\" class=\"btn btn-edit\" data-bs-toggle=\"modal\" data-bs-target=\"#editUserModal";
+                // line 838
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 838), "html", null, true);
+                yield "\" title=\"Modifier\">
+                                            <i class=\"bi bi-pencil-fill\"></i>
+                                        </button>
+
+                                        <!-- Modal d'édition pour l'utilisateur ";
+                // line 842
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 842), "html", null, true);
+                yield " -->
+                                        <div class=\"modal fade\" id=\"editUserModal";
+                // line 843
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 843), "html", null, true);
+                yield "\" tabindex=\"-1\" aria-labelledby=\"editUserModalLabel";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 843), "html", null, true);
+                yield "\" aria-hidden=\"true\">
+                                            <div class=\"modal-dialog\">
+                                                <div class=\"modal-content\">
+                                                    <div class=\"modal-header\">
+                                                        <h5 class=\"modal-title\" id=\"editUserModalLabel";
+                // line 847
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 847), "html", null, true);
+                yield "\">Modifier l'utilisateur</h5>
+                                                        <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>
+                                                    </div>
+                                                    <div class=\"modal-body\">
+                                                        <form id=\"editUserForm";
+                // line 851
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 851), "html", null, true);
+                yield "\">
+                                                            <input type=\"hidden\" name=\"_token\" value=\"";
+                // line 852
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken(("edit" . CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 852))), "html", null, true);
+                yield "\">
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"nom";
+                // line 854
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 854), "html", null, true);
+                yield "\" class=\"form-label\">Nom</label>
+                                                                <input type=\"text\" class=\"form-control\" id=\"nom";
+                // line 855
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 855), "html", null, true);
+                yield "\" name=\"nom\" value=\"";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "nom", [], "any", false, false, false, 855), "html", null, true);
+                yield "\" readonly>
+                                                                <small class=\"form-text text-muted\">Seul l'utilisateur peut modifier son nom</small>
+                                                            </div>
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"prenom";
+                // line 859
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 859), "html", null, true);
+                yield "\" class=\"form-label\">Prénom</label>
+                                                                <input type=\"text\" class=\"form-control\" id=\"prenom";
+                // line 860
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 860), "html", null, true);
+                yield "\" name=\"prenom\" value=\"";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "prenom", [], "any", false, false, false, 860), "html", null, true);
+                yield "\" readonly>
+                                                                <small class=\"form-text text-muted\">Seul l'utilisateur peut modifier son prénom</small>
+                                                            </div>
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"email";
+                // line 864
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 864), "html", null, true);
+                yield "\" class=\"form-label\">Email</label>
+                                                                <input type=\"email\" class=\"form-control\" id=\"email";
+                // line 865
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 865), "html", null, true);
+                yield "\" name=\"email\" value=\"";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "email", [], "any", false, false, false, 865), "html", null, true);
+                yield "\" readonly>
+                                                                <small class=\"form-text text-muted\">Seul l'utilisateur peut modifier son email</small>
+                                                            </div>
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"password";
+                // line 869
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 869), "html", null, true);
+                yield "\" class=\"form-label\">Mot de passe</label>
+                                                                <input type=\"password\" class=\"form-control\" id=\"password";
+                // line 870
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 870), "html", null, true);
+                yield "\" name=\"password\" placeholder=\"Modification non autorisée\" disabled>
+                                                                <small class=\"form-text text-muted\">Seul l'utilisateur peut modifier son mot de passe</small>
+                                                            </div>
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"type_utilisateur";
+                // line 874
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 874), "html", null, true);
+                yield "\" class=\"form-label\">Type d'utilisateur</label>
+                                                                <select class=\"form-select\" id=\"type_utilisateur";
+                // line 875
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 875), "html", null, true);
+                yield "\" name=\"type_utilisateur\" required>
+                                                                    <option value=\"admin\" ";
+                // line 876
+                yield ((((CoreExtension::getAttribute($this->env, $this->source, $context["user"], "typeUtilisateur", [], "any", false, false, false, 876) == "admin") || (CoreExtension::getAttribute($this->env, $this->source, $context["user"], "typeUtilisateur", [], "any", false, false, false, 876) == "ROLE_ADMIN"))) ? ("selected") : (""));
+                yield ">Administrateur</option>
+                                                                    <option value=\"freelance\" ";
+                // line 877
+                yield (((CoreExtension::getAttribute($this->env, $this->source, $context["user"], "typeUtilisateur", [], "any", false, false, false, 877) == "freelance")) ? ("selected") : (""));
+                yield ">Freelance</option>
+                                                                    <option value=\"formateur\" ";
+                // line 878
+                yield (((CoreExtension::getAttribute($this->env, $this->source, $context["user"], "typeUtilisateur", [], "any", false, false, false, 878) == "formateur")) ? ("selected") : (""));
+                yield ">Formateur</option>
+                                                                    <option value=\"employeur\" ";
+                // line 879
+                yield (((CoreExtension::getAttribute($this->env, $this->source, $context["user"], "typeUtilisateur", [], "any", false, false, false, 879) == "employeur")) ? ("selected") : (""));
+                yield ">Employeur</option>
+                                                                </select>
+                                                                <small class=\"form-text text-muted\">Seul champ modifiable par l'administrateur</small>
+                                                            </div>
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"telephone";
+                // line 884
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 884), "html", null, true);
+                yield "\" class=\"form-label\">Téléphone</label>
+                                                                <input type=\"tel\" class=\"form-control\" id=\"telephone";
+                // line 885
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 885), "html", null, true);
+                yield "\" name=\"telephone\" value=\"";
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "telephone", [], "any", false, false, false, 885), "html", null, true);
+                yield "\" readonly>
+                                                                <small class=\"form-text text-muted\">Seul l'utilisateur peut modifier son téléphone</small>
+                                                            </div>
+
+                                                            <div class=\"modal-footer\">
+                                                                <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Fermer</button>
+                                                                <button type=\"button\" class=\"btn btn-primary\" onclick=\"updateUser(event, ";
+                // line 891
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 891), "html", null, true);
+                yield ")\">Enregistrer les modifications</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        ";
+                // line 898
+                if ((($tmp = CoreExtension::getAttribute($this->env, $this->source, $context["user"], "isActive", [], "any", false, false, false, 898)) && $tmp instanceof Markup ? (string) $tmp : $tmp)) {
+                    // line 899
+                    yield "                                            <button class=\"btn btn-ban\" data-bs-toggle=\"modal\" data-bs-target=\"#banUserModal";
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 899), "html", null, true);
+                    yield "\" title=\"Bannir\">
+                                                <i class=\"bi bi-slash-circle-fill\"></i>
+                                            </button>
+                                        ";
+                } else {
+                    // line 903
+                    yield "                                            <button class=\"btn btn-unban\" data-bs-toggle=\"modal\" data-bs-target=\"#unbanUserModal";
+                    yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 903), "html", null, true);
+                    yield "\" title=\"Débannir\">
+                                                <i class=\"bi bi-check-circle-fill\"></i>
+                                            </button>
+                                        ";
+                }
+                // line 907
+                yield "                                        <!-- Bouton pour générer un PDF pour cet utilisateur -->
+                                        <a href=\"";
+                // line 908
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin_user_pdf", ["id" => CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 908)]), "html", null, true);
+                yield "\" class=\"btn btn-pdf\" target=\"_blank\" title=\"Générer PDF\">
+                                            <i class=\"bi bi-file-pdf-fill\"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                ";
+            }
+            // line 914
+            yield "                            ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_key'], $context['user'], $context['_parent']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 915
+        yield "                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add User Modal -->
+    <div class=\"modal fade\" id=\"addUserModal\" tabindex=\"-1\" aria-labelledby=\"addUserModalLabel\" aria-hidden=\"true\">
+        <div class=\"modal-dialog\">
+            <div class=\"modal-content\">
+                <div class=\"modal-header\">
+                    <h5 class=\"modal-title\" id=\"addUserModalLabel\">Ajouter un utilisateur</h5>
+                    <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>
+                </div>
+                <div class=\"modal-body\">
+                    <form action=\"";
+        // line 931
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin_user_new");
+        yield "\" method=\"POST\" id=\"addUserForm\">
+                        <input type=\"hidden\" name=\"_token\" value=\"";
+        // line 932
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken("new"), "html", null, true);
+        yield "\">
+                        <div class=\"mb-3\">
+                            <label for=\"nom\" class=\"form-label\">Nom</label>
+                            <input type=\"text\" class=\"form-control\" id=\"nom\" name=\"nom\" required>
+                        </div>
+                        <div class=\"mb-3\">
+                            <label for=\"prenom\" class=\"form-label\">Prénom</label>
+                            <input type=\"text\" class=\"form-control\" id=\"prenom\" name=\"prenom\" required>
+                        </div>
+                        <div class=\"mb-3\">
+                            <label for=\"email\" class=\"form-label\">Email</label>
+                            <input type=\"email\" class=\"form-control\" id=\"email\" name=\"email\" required>
+                        </div>
+                        <div class=\"mb-3\">
+                            <label for=\"password\" class=\"form-label\">Mot de passe</label>
+                            <input type=\"password\" class=\"form-control\" id=\"password\" name=\"password\" required>
+                        </div>
+                        <div class=\"mb-3\">
+                            <label for=\"type_utilisateur\" class=\"form-label\">Type d'utilisateur</label>
+                            <select class=\"form-select\" id=\"type_utilisateur\" name=\"type_utilisateur\" required>
+                                <option value=\"\">Choisir un type</option>
+                                <option value=\"admin\">Administrateur</option>
+                                <option value=\"freelance\">Freelance</option>
+                                <option value=\"formateur\">Formateur</option>
+                                <option value=\"employeur\">Employeur</option>
+                            </select>
+                        </div>
+                        <div class=\"mb-3\">
+                            <label for=\"telephone\" class=\"form-label\">Téléphone</label>
+                            <input type=\"tel\" class=\"form-control\" id=\"telephone\" name=\"telephone\" pattern=\"[0-9]{8}\" title=\"Le numéro de téléphone doit contenir 8 chiffres\">
+                            <small class=\"form-text text-muted\">Format: 8 chiffres sans espaces (ex: 12345678)</small>
+                        </div>
+
+                        <div class=\"modal-footer\">
+                            <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Fermer</button>
+                            <button type=\"submit\" class=\"btn btn-primary\">Ajouter</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Afficher les messages flash dans la modal si nécessaire
+            ";
+        // line 978
+        $context['_parent'] = $context;
+        $context['_seq'] = CoreExtension::ensureTraversable(CoreExtension::getAttribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 978, $this->source); })()), "flashes", [], "any", false, false, false, 978));
+        foreach ($context['_seq'] as $context["label"] => $context["messages"]) {
+            // line 979
+            yield "                ";
+            $context['_parent'] = $context;
+            $context['_seq'] = CoreExtension::ensureTraversable($context["messages"]);
+            foreach ($context['_seq'] as $context["_key"] => $context["message"]) {
+                // line 980
+                yield "                    var alertDiv = document.createElement('div');
+                    alertDiv.className = 'alert alert-";
+                // line 981
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["label"], "html", null, true);
+                yield "';
+                    alertDiv.textContent = '";
+                // line 982
+                yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($context["message"], "html", null, true);
+                yield "';
+                    document.querySelector('.modal-body').insertBefore(alertDiv, document.querySelector('.modal-body').firstChild);
+                ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_key'], $context['message'], $context['_parent']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 985
+            yield "            ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['label'], $context['messages'], $context['_parent']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 986
+        yield "
+            // Réinitialiser le formulaire quand la modal est fermée
+            var addUserModal = document.getElementById('addUserModal');
+            addUserModal.addEventListener('hidden.bs.modal', function () {
+                var form = addUserModal.querySelector('form');
+                if (form) {
+                    form.reset();
+                }
+                // Supprimer les messages d'alerte
+                var alerts = addUserModal.querySelectorAll('.alert');
+                alerts.forEach(function(alert) {
+                    alert.remove();
+                });
+            });
+        });
+    </script>
+
+    <!-- Modals de bannissement pour chaque utilisateur -->
+    ";
+        // line 1004
+        $context['_parent'] = $context;
+        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["users"]) || array_key_exists("users", $context) ? $context["users"] : (function () { throw new RuntimeError('Variable "users" does not exist.', 1004, $this->source); })()));
+        foreach ($context['_seq'] as $context["_key"] => $context["user"]) {
+            // line 1005
+            yield "        <!-- Modal de bannissement -->
+        <div class=\"modal fade\" id=\"banUserModal";
+            // line 1006
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 1006), "html", null, true);
+            yield "\" tabindex=\"-1\" aria-labelledby=\"banUserModalLabel";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 1006), "html", null, true);
+            yield "\" aria-hidden=\"true\">
+            <div class=\"modal-dialog\">
+                <div class=\"modal-content\">
+                    <div class=\"modal-header\">
+                        <h5 class=\"modal-title\" id=\"banUserModalLabel";
+            // line 1010
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 1010), "html", null, true);
+            yield "\">Bannir l'utilisateur</h5>
+                        <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>
+                    </div>
+                    <div class=\"modal-body\">
+                        <p>Êtes-vous sûr de vouloir bannir l'utilisateur <strong>";
+            // line 1014
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "nom", [], "any", false, false, false, 1014), "html", null, true);
+            yield " ";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "prenom", [], "any", false, false, false, 1014), "html", null, true);
+            yield "</strong> ?</p>
+                        <p>L'utilisateur ne pourra plus se connecter à son compte, mais ses données seront conservées.</p>
+                    </div>
+                    <div class=\"modal-footer\">
+                        <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Annuler</button>
+                        <button type=\"button\" class=\"btn btn-warning\" onclick=\"toggleUserStatus(";
+            // line 1019
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 1019), "html", null, true);
+            yield ", false)\">Bannir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal de débannissement -->
+        <div class=\"modal fade\" id=\"unbanUserModal";
+            // line 1026
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 1026), "html", null, true);
+            yield "\" tabindex=\"-1\" aria-labelledby=\"unbanUserModalLabel";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 1026), "html", null, true);
+            yield "\" aria-hidden=\"true\">
+            <div class=\"modal-dialog\">
+                <div class=\"modal-content\">
+                    <div class=\"modal-header\">
+                        <h5 class=\"modal-title\" id=\"unbanUserModalLabel";
+            // line 1030
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 1030), "html", null, true);
+            yield "\">Réactiver l'utilisateur</h5>
+                        <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>
+                    </div>
+                    <div class=\"modal-body\">
+                        <p>Êtes-vous sûr de vouloir réactiver l'utilisateur <strong>";
+            // line 1034
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "nom", [], "any", false, false, false, 1034), "html", null, true);
+            yield " ";
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "prenom", [], "any", false, false, false, 1034), "html", null, true);
+            yield "</strong> ?</p>
+                        <p>L'utilisateur pourra à nouveau se connecter à son compte.</p>
+                    </div>
+                    <div class=\"modal-footer\">
+                        <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Annuler</button>
+                        <button type=\"button\" class=\"btn btn-success\" onclick=\"toggleUserStatus(";
+            // line 1039
+            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["user"], "id", [], "any", false, false, false, 1039), "html", null, true);
+            yield ", true)\">Réactiver</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    ";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_key'], $context['user'], $context['_parent']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
+        // line 1045
+        yield "    <!-- Modal des conditions d'utilisation -->
+    <div class=\"modal fade\" id=\"conditionsModal\" tabindex=\"-1\" aria-labelledby=\"conditionsModalLabel\" aria-hidden=\"true\">
+        <div class=\"modal-dialog modal-lg\">
+            <div class=\"modal-content\">
+                <div class=\"modal-header\">
+                    <h5 class=\"modal-title\" id=\"conditionsModalLabel\">Conditions d'utilisation</h5>
+                    <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>
+                </div>
+                <div class=\"modal-body\">
+                    <h4>Conditions Générales d'Utilisation</h4>
+                    <p>Dernière mise à jour : ";
+        // line 1055
+        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Twig\Extension\CoreExtension']->formatDate("now", "d/m/Y"), "html", null, true);
+        yield "</p>
+                    
+                    <h5>1. Acceptation des conditions</h5>
+                    <p>En utilisant cette plateforme, vous acceptez de vous conformer aux présentes Conditions Générales d'Utilisation. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser cette plateforme.</p>
+                    
+                    <h5>2. Description du service</h5>
+                    <p>Notre plateforme propose des services de mise en relation entre freelances, formateurs, employeurs et administrateurs dans le cadre de projets professionnels.</p>
+                    
+                    <h5>3. Inscription et comptes utilisateurs</h5>
+                    <p>Pour utiliser certaines fonctionnalités de notre plateforme, vous devez créer un compte. Vous êtes responsable de maintenir la confidentialité de vos identifiants et de toutes les activités qui se produisent sous votre compte.</p>
+                    
+                    <h5>4. Données personnelles</h5>
+                    <p>Nous recueillons et traitons vos données personnelles conformément à notre politique de confidentialité. En utilisant notre plateforme, vous consentez à cette collecte et à ce traitement.</p>
+                    
+                    <h5>5. Propriété intellectuelle</h5>
+                    <p>Tous les contenus présents sur cette plateforme sont protégés par des droits de propriété intellectuelle. Toute reproduction non autorisée est interdite.</p>
+                    
+                    <h5>6. Limitation de responsabilité</h5>
+                    <p>Nous ne pouvons garantir que notre plateforme sera exempte d'erreurs ou d'interruptions. Nous ne sommes pas responsables des dommages indirects résultant de l'utilisation de notre plateforme.</p>
+                    
+                    <h5>7. Modification des conditions</h5>
+                    <p>Nous nous réservons le droit de modifier ces conditions à tout moment. Les modifications prennent effet dès leur publication sur la plateforme.</p>
+                </div>
+                <div class=\"modal-footer\">
+                    <button type=\"button\" class=\"btn btn-primary\" data-bs-dismiss=\"modal\">J'ai compris</button>
+                </div>
+            </div>
+        </div>
+    </div>
+";
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+
+        yield from [];
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getTemplateName(): string
+    {
+        return "admin/users.html.twig";
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function isTraitable(): bool
+    {
+        return false;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public function getDebugInfo(): array
+    {
+        return array (  1580 => 1055,  1568 => 1045,  1556 => 1039,  1546 => 1034,  1539 => 1030,  1530 => 1026,  1520 => 1019,  1510 => 1014,  1503 => 1010,  1494 => 1006,  1491 => 1005,  1487 => 1004,  1467 => 986,  1461 => 985,  1452 => 982,  1448 => 981,  1445 => 980,  1440 => 979,  1436 => 978,  1387 => 932,  1383 => 931,  1365 => 915,  1359 => 914,  1350 => 908,  1347 => 907,  1339 => 903,  1331 => 899,  1329 => 898,  1319 => 891,  1308 => 885,  1304 => 884,  1296 => 879,  1292 => 878,  1288 => 877,  1284 => 876,  1280 => 875,  1276 => 874,  1269 => 870,  1265 => 869,  1256 => 865,  1252 => 864,  1243 => 860,  1239 => 859,  1230 => 855,  1226 => 854,  1221 => 852,  1217 => 851,  1210 => 847,  1201 => 843,  1197 => 842,  1190 => 838,  1185 => 836,  1182 => 835,  1178 => 833,  1174 => 831,  1172 => 830,  1167 => 828,  1163 => 827,  1159 => 826,  1155 => 825,  1151 => 824,  1144 => 823,  1141 => 822,  1137 => 821,  1114 => 800,  1108 => 799,  1099 => 793,  1096 => 792,  1088 => 788,  1080 => 784,  1078 => 783,  1068 => 776,  1057 => 770,  1053 => 769,  1045 => 764,  1041 => 763,  1037 => 762,  1033 => 761,  1029 => 760,  1025 => 759,  1018 => 755,  1014 => 754,  1005 => 750,  1001 => 749,  992 => 745,  988 => 744,  979 => 740,  975 => 739,  970 => 737,  966 => 736,  959 => 732,  950 => 728,  946 => 727,  939 => 723,  934 => 721,  931 => 720,  927 => 718,  923 => 716,  921 => 715,  916 => 713,  912 => 712,  908 => 711,  904 => 710,  900 => 709,  893 => 708,  890 => 707,  886 => 706,  824 => 647,  810 => 635,  804 => 634,  794 => 630,  789 => 629,  784 => 628,  780 => 627,  777 => 626,  767 => 625,  677 => 542,  620 => 488,  356 => 228,  346 => 227,  128 => 15,  123 => 14,  113 => 13,  96 => 10,  79 => 8,  62 => 5,  45 => 2,);
+    }
+
+    public function getSourceContext(): Source
+    {
+        return new Source("{# Hérite du template de base de l'administration #}
+{% extends 'admin/base_admin.html.twig' %}
+
+{# Titre de la page #}
+{% block title %}Gestion des utilisateurs{% endblock %}
+
+{# Titre affiché sur la page #}
+{% block page_title %}Gestion des utilisateurs{% endblock %}
+{# Fil d'Ariane (breadcrumb) #}
+{% block breadcrumb %}Utilisateurs{% endblock %}
+
+{# Bloc pour les feuilles de style spécifiques à cette page #}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel=\"stylesheet\" href=\"{{ asset('assets/css/adminlte-custom.css') }}\">
+    <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css\" rel=\"stylesheet\">
+    <style>
+        .user-actions .btn {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            margin-right: 0.25rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+        }
+        
+        .user-actions .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+        
+        .user-actions .btn-edit {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: #212529;
+        }
+        
+        .user-actions .btn-edit:hover {
+            background-color: #e0a800;
+            border-color: #d39e00;
+        }
+        
+        .user-actions .btn-ban {
+            background-color: #fd7e14;
+            border-color: #fd7e14;
+            color: #fff;
+        }
+        
+        .user-actions .btn-ban:hover {
+            background-color: #e76b00;
+            border-color: #e76b00;
+        }
+        
+        .user-actions .btn-unban {
+            background-color: #20c997;
+            border-color: #20c997;
+            color: #fff;
+        }
+        
+        .user-actions .btn-unban:hover {
+            background-color: #1ba87e;
+            border-color: #1ba87e;
+        }
+        
+        .user-actions .btn-pdf {
+            background-color: #fff;
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+        
+        .user-actions .btn-pdf:hover {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: #fff;
+        }
+        
+        .stats-box {
+            border: 1px solid #dee2e6;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+        }
+        
+        .type-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .type-stat:last-child {
+            border-bottom: none;
+        }
+        
+        .type-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .type-freelance {
+            background-color: #e3f2fd;
+            color: #0d6efd;
+        }
+        
+        .type-formateur {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .type-employeur {
+            background-color: #fff3e0;
+            color: #ed6c02;
+        }
+        
+        .header-actions .btn {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.875rem;
+            border-radius: 0.5rem;
+            margin-right: 0.25rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+        }
+        
+        .header-actions .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+        }
+        
+        .header-actions .btn-stats {
+            background-color: #fff;
+            border-color: #0d6efd;
+            color: #0d6efd;
+        }
+        
+        .header-actions .btn-stats:hover {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+            color: #fff;
+        }
+        
+        .header-actions .btn-add {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+            color: #fff;
+        }
+        
+        .header-actions .btn-add:hover {
+            background-color: #0b5ed7;
+            border-color: #0a58ca;
+        }
+        
+        .header-actions .btn-pdf {
+            background-color: #fff;
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+        
+        .header-actions .btn-pdf:hover {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: #fff;
+        }
+        
+        .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+            text-align: center;
+            min-width: 80px;
+        }
+        
+        .status-active {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            border: 1px solid #badbcc;
+        }
+        
+        .status-banned {
+            background-color: #f8d7da;
+            color: #842029;
+            border: 1px solid #f5c2c7;
+        }
+        
+        .user-table-container {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+        
+        .user-table {
+            width: 100%;
+            table-layout: fixed;
+        }
+        
+        .user-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+        
+        .user-table th:nth-child(1), /* Nom */
+        .user-table th:nth-child(2) { /* Prénom */
+            width: 12%;
+        }
+        
+        .user-table th:nth-child(3) { /* Email */
+            width: 18%;
+        }
+        
+        .user-table th:nth-child(4), /* Téléphone */
+        .user-table th:nth-child(5), /* Type */
+        .user-table th:nth-child(6) { /* Statut */
+            width: 10%;
+        }
+        
+        .user-table th:nth-child(7) { /* Date */
+            width: 12%;
+        }
+        
+        .user-table th:nth-child(8) { /* Actions */
+            width: 16%;
+        }
+    </style>
+{% endblock %}
+
+{# Bloc pour les scripts JavaScript spécifiques à cette page #}
+{% block javascripts %}
+    {{ parent() }}
+    <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js\"></script>
+    <script src=\"https://cdn.jsdelivr.net/npm/chart.js\"></script>
+    <script>
+    // Fonction de recherche dynamique, de tri et de statistiques
+    document.addEventListener('DOMContentLoaded', function() {
+        // Gérer l'affichage des statistiques lors du clic sur le bouton
+        const showStatsBtn = document.getElementById('showStatsBtn');
+        const statsSection = document.getElementById('statsSection');
+        
+        let chartInstance = null;
+        let statsGenerated = false;
+        
+        if (showStatsBtn && statsSection) {
+            showStatsBtn.addEventListener('click', function() {
+                // Basculer l'affichage de la section des statistiques
+                if (statsSection.style.display === 'none') {
+                    statsSection.style.display = 'block';
+                    showStatsBtn.innerHTML = '<i class=\"bi bi-x-lg me-1\"></i>Fermer';
+                    showStatsBtn.classList.remove('btn-stats');
+                    showStatsBtn.classList.add('btn-stats-close');
+                    
+                    // Générer les statistiques uniquement si elles n'ont pas encore été générées
+                    if (!statsGenerated) {
+                        generateStats();
+                        statsGenerated = true;
+                    }
+                } else {
+                    statsSection.style.display = 'none';
+                    showStatsBtn.innerHTML = '<i class=\"bi bi-bar-chart-fill me-1\"></i>Stats';
+                    showStatsBtn.classList.remove('btn-stats-close');
+                    showStatsBtn.classList.add('btn-stats');
+                }
+            });
+        }
+        
+        // Fonction pour générer les statistiques
+        function generateStats() {
+            // Préparation des données pour les statistiques par type
+            const userRows = document.querySelectorAll('tbody tr');
+            const userTypes = {};
+            let totalUsers = 0;
+            
+            userRows.forEach(row => {
+                const typeCell = row.querySelector('td:nth-child(5)');
+                if (typeCell) {
+                    const type = typeCell.textContent.trim().toLowerCase();
+                    if (!userTypes[type]) {
+                        userTypes[type] = 0;
+                    }
+                    userTypes[type]++;
+                    totalUsers++;
+                }
+            });
+            
+            // Création du graphique
+            if (document.getElementById('userTypeChart')) {
+                const ctx = document.getElementById('userTypeChart').getContext('2d');
+                
+                // Préparation des données pour Chart.js
+                const typeLabels = Object.keys(userTypes).map(type => type.charAt(0).toUpperCase() + type.slice(1));
+                const typeCounts = Object.values(userTypes);
+                const backgroundColors = [
+                    'rgba(13, 110, 253, 0.7)',  // Bleu pour freelance
+                    'rgba(46, 125, 50, 0.7)',   // Vert pour formateur
+                    'rgba(237, 108, 2, 0.7)'    // Orange pour employeur
+                ];
+                
+                // Détruire le graphique existant s'il y en a un
+                if (chartInstance) {
+                    chartInstance.destroy();
+                }
+                
+                // Créer un nouveau graphique
+                chartInstance = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: typeLabels,
+                        datasets: [{
+                            data: typeCounts,
+                            backgroundColor: backgroundColors,
+                            borderColor: '#ffffff',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: {
+                                    font: {
+                                        size: 12
+                                    }
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const label = context.label || '';
+                                        const value = context.raw || 0;
+                                        const percentage = Math.round((value / totalUsers) * 100);
+                                        return `\${label}: \${value} (\${percentage}%)`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+            
+            // Affichage des statistiques textuelles
+            const statsContainer = document.getElementById('userTypeStats');
+            if (statsContainer) {
+                let statsHTML = '';
+                
+                Object.entries(userTypes).forEach(([type, count]) => {
+                    const percentage = Math.round((count / totalUsers) * 100);
+                    const typeClass = `type-\${type}`;
+                    
+                    statsHTML += `
+                    <div class=\"type-stat\">
+                        <div>
+                            <span class=\"type-badge \${typeClass}\">\${type.charAt(0).toUpperCase() + type.slice(1)}</span>
+                        </div>
+                        <div>
+                            <strong>\${count}</strong> utilisateurs <small>(\${percentage}%)</small>
+                        </div>
+                    </div>`;
+                });
+                
+                statsHTML += `
+                <div class=\"type-stat mt-2\">
+                    <div><strong>Total</strong></div>
+                    <div><strong>\${totalUsers}</strong> utilisateurs</div>
+                </div>`;
+                
+                statsContainer.innerHTML = statsHTML;
+            }
+        }
+        const searchInput = document.getElementById('searchInput');
+        const sortOldestFirst = document.getElementById('sortOldestFirst');
+        const sortNewestFirst = document.getElementById('sortNewestFirst');
+        const userTable = document.querySelector('table.table');
+        const tbody = userTable ? userTable.querySelector('tbody') : null;
+        
+        // Fonction pour trier les lignes du tableau
+        function sortTableRows(ascending = true) {
+            if (!tbody) return;
+            
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            // Trier les lignes par date d'inscription
+            rows.sort((a, b) => {
+                const dateA = parseInt(a.getAttribute('data-date-inscription') || '0');
+                const dateB = parseInt(b.getAttribute('data-date-inscription') || '0');
+                
+                return ascending ? dateA - dateB : dateB - dateA;
+            });
+            
+            // Réorganiser les lignes dans le DOM
+            rows.forEach(row => {
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Recherche par nom ou prénom
+        if (searchInput) {
+            searchInput.addEventListener('keyup', function() {
+                const searchValue = this.value.toLowerCase();
+                const adminRows = document.querySelectorAll('.admin-table tbody tr');
+                const userRows = document.querySelectorAll('.users-table tbody tr');
+                
+                // Fonction pour filtrer les lignes
+                function filterRows(rows) {
+                    rows.forEach(row => {
+                        const nameCell = row.querySelector('td:nth-child(1)');
+                        const firstNameCell = row.querySelector('td:nth-child(2)');
+                        
+                        const name = nameCell ? nameCell.textContent.toLowerCase() : '';
+                        const firstName = firstNameCell ? firstNameCell.textContent.toLowerCase() : '';
+                        
+                        // Recherche à la fois dans le nom et le prénom
+                        if (name.includes(searchValue) || firstName.includes(searchValue)) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                        }
+                    });
+                }
+                
+                // Appliquer le filtre aux deux tableaux
+                filterRows(adminRows);
+                filterRows(userRows);
+            });
+        }
+        
+        // Tri par date d'inscription via le select
+        const sortSelect = document.getElementById('sortSelect');
+        if (sortSelect) {
+            sortSelect.addEventListener('change', function() {
+                const value = this.value;
+                
+                if (value === 'oldest') {
+                    sortTableRows(true); // Tri ascendant (plus anciens d'abord)
+                } else if (value === 'newest') {
+                    sortTableRows(false); // Tri descendant (plus récents d'abord)
+                }
+                // Si 'none' est sélectionné, on ne fait rien (pas de tri)
+            });
+        }
+    });
+    
+    // Fonction JavaScript pour la mise à jour d'un utilisateur via AJAX
+    async function updateUser(event, userId) {
+        try {
+            const form = document.getElementById(`editUserForm\${userId}`);
+            if (!form) {
+                throw new Error('Formulaire non trouvé');
+            }
+
+            // Supprimer les anciennes alertes
+            form.querySelectorAll('.alert').forEach(alert => alert.remove());
+            document.querySelectorAll('.alert-ajax').forEach(alert => alert.remove());
+
+            // Désactiver le bouton de soumission
+            const submitButton = form.querySelector('button.btn-primary');
+            if (!submitButton) {
+                throw new Error('Bouton de soumission non trouvé');
+            }
+
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> Enregistrement...';
+
+            // Préparer les données
+            const formData = new FormData();
+            const fields = {
+                '_token': 'input[name=\"_token\"]',
+                'nom': 'input[name=\"nom\"]',
+                'prenom': 'input[name=\"prenom\"]',
+                'email': 'input[name=\"email\"]',
+                'password': 'input[name=\"password\"]',
+                'type_utilisateur': 'select[name=\"type_utilisateur\"]',
+                'telephone': 'input[name=\"telephone\"]'
+            };
+            
+            // Ajouter les conditions d'utilisation automatiquement
+            formData.append('conditions', 'on');
+
+            // Vérifier et ajouter chaque champ
+            for (const [key, selector] of Object.entries(fields)) {
+                const element = form.querySelector(selector);
+                if (!element) {
+                    throw new Error(`Champ \${key} non trouvé`);
+                }
+                formData.append(key, element.value);
+            }
+
+            // Construire l'URL de l'API
+            const url = `{{ path('api_user_edit', {'id': '__USER_ID__'}) }}`.replace('__USER_ID__', userId);
+
+            console.log('Envoi de la requête à URL:', url);
+            console.log('Données du formulaire:', Object.fromEntries(formData.entries()));
+            
+            // Envoyer la requête
+            const response = await fetch(url, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
+                },
+                // S'assurer que les cookies sont envoyés avec la requête
+                credentials: 'same-origin'
+            });
+
+            // Vérifier d'abord le type de contenu
+            const contentType = response.headers.get('content-type');
+            console.log('Type de contenu de la réponse:', contentType);
+            
+            // Récupérer la réponse
+            let data;
+            if (contentType && contentType.includes('application/json')) {
+                try {
+                    data = await response.json();
+                    console.log('Réponse JSON reçue:', data);
+                } catch (jsonError) {
+                    console.error('Erreur lors du parsing JSON:', jsonError);
+                    throw new Error(`Erreur lors du parsing de la réponse JSON: \${jsonError.message}`);
+                }
+            } else {
+                // Si ce n'est pas du JSON, récupérer le texte
+                const text = await response.text();
+                console.error('Réponse non-JSON reçue:', {
+                    status: response.status,
+                    statusText: response.statusText,
+                    contentType: contentType,
+                    body: text,
+                    url: url
+                });
+                throw new Error(`Réponse invalide du serveur (Status: \${response.status}, Content-Type: \${contentType || 'non défini'})`);
+            }
+
+            // Vérifier si la réponse est OK
+            if (!response.ok) {
+                throw new Error(data.message || `Erreur HTTP: \${response.status} \${response.statusText}`);
+            }
+
+            if (!data.success) {
+                throw new Error(data.message || 'Erreur lors de la modification');
+            }
+
+            // Redirection simple vers la page des utilisateurs
+            window.location.href = \"{{ path('admin_users') }}\";
+
+
+
+            // Réinitialiser le mot de passe
+            const passwordInput = form.querySelector('input[name=\"password\"]');
+            if (passwordInput) {
+                passwordInput.value = '';
+            }
+
+        } catch (error) {
+            console.error('Erreur lors de la modification:', error);
+            
+            // Afficher l'erreur dans le formulaire
+            const form = document.getElementById(`editUserForm\${userId}`);
+            if (form) {
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'alert alert-danger';
+                errorDiv.textContent = error.message;
+                form.insertBefore(errorDiv, form.firstChild);
+            }
+            
+            // Afficher également l'erreur en haut de la page
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'alert alert-danger alert-dismissible fade show alert-ajax';
+            alertDiv.innerHTML = `
+                Erreur: \${error.message}
+                <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>
+            `;
+            const container = document.querySelector('.container-fluid');
+            const card = document.querySelector('.card');
+            if (container && card) {
+                container.insertBefore(alertDiv, card);
+                setTimeout(() => alertDiv.remove(), 5000);
+            }
+        } finally {
+            // Réactiver le bouton de soumission
+            const form = document.getElementById(`editUserForm\${userId}`);
+            if (form) {
+                const submitButton = form.querySelector('button.btn-primary');
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = 'Enregistrer les modifications';
+                }
+            }
+        }
+    }
+    
+    // Fonction pour bannir/débannir un utilisateur
+    function toggleUserStatus(userId, isActive) {
+        // Désactiver le bouton pour éviter les clics multiples
+        const button = event.target;
+        button.disabled = true;
+        button.innerHTML = '<span class=\"spinner-border spinner-border-sm\" role=\"status\" aria-hidden=\"true\"></span> Traitement...';
+        
+        // Préparer les données et l'URL
+        const url = `/admin/api/user/\${userId}/toggle-status`;
+        
+        // Envoi de la requête en arrière-plan
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ isActive: isActive })
+        });
+        
+        // Fermer le modal immédiatement
+        const modalId = isActive ? `unbanUserModal\${userId}` : `banUserModal\${userId}`;
+        const modalElement = document.getElementById(modalId);
+        if (modalElement) {
+            const modal = bootstrap.Modal.getInstance(modalElement);
+            if (modal) {
+                modal.hide();
+            }
+        }
+        
+        // Rafraîchir la page immédiatement
+        window.location.reload();
+    }
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class=\"container-fluid\">
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class=\"alert alert-{{ label == 'error' ? 'danger' : label }} alert-dismissible fade show\" role=\"alert\">
+                    {{ message }}
+                    <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        <div class=\"card\">
+            <div class=\"card-header\">
+                <div class=\"d-flex justify-content-between align-items-center mb-2\">
+                    <h3 class=\"card-title\">Liste des utilisateurs</h3>
+                    <div class=\"header-actions\">
+                        <button id=\"showStatsBtn\" class=\"btn btn-stats\" title=\"Afficher les statistiques\">
+                            <i class=\"bi bi-bar-chart-fill me-1\"></i>Stats
+                        </button>
+                        <button class=\"btn btn-add\" data-bs-toggle=\"modal\" data-bs-target=\"#addUserModal\" title=\"Ajouter un utilisateur\">
+                            <i class=\"bi bi-person-plus-fill me-1\"></i>Ajouter
+                        </button>
+                        <!-- Bouton pour générer un PDF de tous les utilisateurs -->
+                        <a href=\"{{ path('admin_users_pdf') }}\" class=\"btn btn-pdf\" target=\"_blank\" title=\"Générer PDF\">
+                            <i class=\"bi bi-file-pdf-fill me-1\"></i>PDF
+                        </a>
+                    </div>
+                </div>
+                <div class=\"row mt-3\">
+                    <div class=\"col-md-8\">
+                        <div class=\"input-group\">
+                            <span class=\"input-group-text\"><i class=\"bi bi-search\"></i></span>
+                            <input type=\"text\" id=\"searchInput\" class=\"form-control\" placeholder=\"Rechercher par nom ou prénom...\" aria-label=\"Rechercher\">
+                            <select id=\"sortSelect\" class=\"form-select\" style=\"max-width: 150px;\">
+                                <option value=\"none\" selected>Trier par date</option>
+                                <option value=\"oldest\">Plus ancien</option>
+                                <option value=\"newest\">Plus récent</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section des statistiques par type d'utilisateur (masquée par défaut) -->
+            <div id=\"statsSection\" class=\"card-body border-bottom\" style=\"display: none;\">
+                <div class=\"row\">
+                    <div class=\"col-md-8\">
+                        <h5 class=\"mb-3\">Statistiques par type d'utilisateur</h5>
+                        <div class=\"chart-container\" style=\"position: relative; height:250px;\">
+                            <canvas id=\"userTypeChart\"></canvas>
+                        </div>
+                    </div>
+                    <div class=\"col-md-4\">
+                        <div class=\"mt-4\">
+                            <div class=\"stats-box p-3 rounded mb-2 bg-light\">
+                                <h6 class=\"mb-2\">Répartition des utilisateurs</h6>
+                                <div id=\"userTypeStats\" class=\"mt-3\">
+                                    <!-- Les statistiques seront insérées ici par JavaScript -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class=\"card-body\">
+                <!-- Tableau des administrateurs -->
+                <h4 class=\"mb-3\">Administrateurs</h4>
+                <div class=\"user-table-container\">
+                    <table class=\"table table-bordered table-striped admin-table user-table\">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Email</th>
+                                <th>Téléphone</th>
+                                <th>Type</th>
+                                <th>Statut</th>
+                                <th>Date d'inscription</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                                {% if user.typeUtilisateur == 'admin' or user.typeUtilisateur == 'ROLE_ADMIN' %}
+                                <tr data-user-id=\"{{ user.id }}\" data-date-inscription=\"{{ user.dateInscription|date('U') }}\">
+                                    <td>{{ user.nom }}</td>
+                                    <td>{{ user.prenom }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.telephone }}</td>
+                                    <td>{{ user.typeUtilisateur }}</td>
+                                    <td>
+                                        {% if user.isActive %}
+                                            <span class=\"status-badge status-active\">Actif</span>
+                                        {% else %}
+                                            <span class=\"status-badge status-banned\">Banni</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ user.dateInscription|date('d/m/Y H:i') }}</td>
+                                    <td class=\"user-actions\">
+                                        <button type=\"button\" class=\"btn btn-edit\" data-bs-toggle=\"modal\" data-bs-target=\"#editUserModal{{ user.id }}\" title=\"Modifier\">
+                                            <i class=\"bi bi-pencil-fill\"></i>
+                                        </button>
+
+                                        <!-- Modal d'édition pour l'utilisateur {{ user.id }} -->
+                                        <div class=\"modal fade\" id=\"editUserModal{{ user.id }}\" tabindex=\"-1\" aria-labelledby=\"editUserModalLabel{{ user.id }}\" aria-hidden=\"true\">
+                                            <div class=\"modal-dialog\">
+                                                <div class=\"modal-content\">
+                                                    <div class=\"modal-header\">
+                                                        <h5 class=\"modal-title\" id=\"editUserModalLabel{{ user.id }}\">Modifier l'utilisateur</h5>
+                                                        <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>
+                                                    </div>
+                                                    <div class=\"modal-body\">
+                                                        <form id=\"editUserForm{{ user.id }}\">
+                                                            <input type=\"hidden\" name=\"_token\" value=\"{{ csrf_token('edit' ~ user.id) }}\">
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"nom{{ user.id }}\" class=\"form-label\">Nom</label>
+                                                                <input type=\"text\" class=\"form-control\" id=\"nom{{ user.id }}\" name=\"nom\" value=\"{{ user.nom }}\" readonly>
+                                                                <small class=\"form-text text-muted\">Seul l'utilisateur peut modifier son nom</small>
+                                                            </div>
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"prenom{{ user.id }}\" class=\"form-label\">Prénom</label>
+                                                                <input type=\"text\" class=\"form-control\" id=\"prenom{{ user.id }}\" name=\"prenom\" value=\"{{ user.prenom }}\" readonly>
+                                                                <small class=\"form-text text-muted\">Seul l'utilisateur peut modifier son prénom</small>
+                                                            </div>
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"email{{ user.id }}\" class=\"form-label\">Email</label>
+                                                                <input type=\"email\" class=\"form-control\" id=\"email{{ user.id }}\" name=\"email\" value=\"{{ user.email }}\" readonly>
+                                                                <small class=\"form-text text-muted\">Seul l'utilisateur peut modifier son email</small>
+                                                            </div>
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"password{{ user.id }}\" class=\"form-label\">Mot de passe</label>
+                                                                <input type=\"password\" class=\"form-control\" id=\"password{{ user.id }}\" name=\"password\" placeholder=\"Modification non autorisée\" disabled>
+                                                                <small class=\"form-text text-muted\">Seul l'utilisateur peut modifier son mot de passe</small>
+                                                            </div>
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"type_utilisateur{{ user.id }}\" class=\"form-label\">Type d'utilisateur</label>
+                                                                <select class=\"form-select\" id=\"type_utilisateur{{ user.id }}\" name=\"type_utilisateur\" required>
+                                                                    <option value=\"admin\" {{ user.typeUtilisateur == 'admin' or user.typeUtilisateur == 'ROLE_ADMIN' ? 'selected' : '' }}>Administrateur</option>
+                                                                    <option value=\"freelance\" {{ user.typeUtilisateur == 'freelance' ? 'selected' : '' }}>Freelance</option>
+                                                                    <option value=\"formateur\" {{ user.typeUtilisateur == 'formateur' ? 'selected' : '' }}>Formateur</option>
+                                                                    <option value=\"employeur\" {{ user.typeUtilisateur == 'employeur' ? 'selected' : '' }}>Employeur</option>
+                                                                </select>
+                                                                <small class=\"form-text text-muted\">Seul champ modifiable par l'administrateur</small>
+                                                            </div>
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"telephone{{ user.id }}\" class=\"form-label\">Téléphone</label>
+                                                                <input type=\"tel\" class=\"form-control\" id=\"telephone{{ user.id }}\" name=\"telephone\" value=\"{{ user.telephone }}\" readonly>
+                                                                <small class=\"form-text text-muted\">Seul l'utilisateur peut modifier son téléphone</small>
+                                                            </div>
+
+                                                            <div class=\"modal-footer\">
+                                                                <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Fermer</button>
+                                                                <button type=\"button\" class=\"btn btn-primary\" onclick=\"updateUser(event, {{ user.id }})\">Enregistrer les modifications</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% if user.isActive %}
+                                            <button class=\"btn btn-ban\" data-bs-toggle=\"modal\" data-bs-target=\"#banUserModal{{ user.id }}\" title=\"Bannir\">
+                                                <i class=\"bi bi-slash-circle-fill\"></i>
+                                            </button>
+                                        {% else %}
+                                            <button class=\"btn btn-unban\" data-bs-toggle=\"modal\" data-bs-target=\"#unbanUserModal{{ user.id }}\" title=\"Débannir\">
+                                                <i class=\"bi bi-check-circle-fill\"></i>
+                                            </button>
+                                        {% endif %}
+                                        <!-- Bouton pour générer un PDF pour cet utilisateur -->
+                                        <a href=\"{{ path('admin_user_pdf', {'id': user.id}) }}\" class=\"btn btn-pdf\" target=\"_blank\" title=\"Générer PDF\">
+                                            <i class=\"bi bi-file-pdf-fill\"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Tableau des utilisateurs normaux -->
+                <h4 class=\"mb-3\">Utilisateurs</h4>
+                <div class=\"user-table-container\">
+                    <table class=\"table table-bordered table-striped users-table user-table\">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Email</th>
+                                <th>Téléphone</th>
+                                <th>Type</th>
+                                <th>Statut</th>
+                                <th>Date d'inscription</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in users %}
+                                {% if user.typeUtilisateur != 'admin' and user.typeUtilisateur != 'ROLE_ADMIN' %}
+                                <tr data-user-id=\"{{ user.id }}\" data-date-inscription=\"{{ user.dateInscription|date('U') }}\">
+                                    <td>{{ user.nom }}</td>
+                                    <td>{{ user.prenom }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.telephone }}</td>
+                                    <td>{{ user.typeUtilisateur }}</td>
+                                    <td>
+                                        {% if user.isActive %}
+                                            <span class=\"status-badge status-active\">Actif</span>
+                                        {% else %}
+                                            <span class=\"status-badge status-banned\">Banni</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ user.dateInscription|date('d/m/Y H:i') }}</td>
+                                    <td class=\"user-actions\">
+                                        <button type=\"button\" class=\"btn btn-edit\" data-bs-toggle=\"modal\" data-bs-target=\"#editUserModal{{ user.id }}\" title=\"Modifier\">
+                                            <i class=\"bi bi-pencil-fill\"></i>
+                                        </button>
+
+                                        <!-- Modal d'édition pour l'utilisateur {{ user.id }} -->
+                                        <div class=\"modal fade\" id=\"editUserModal{{ user.id }}\" tabindex=\"-1\" aria-labelledby=\"editUserModalLabel{{ user.id }}\" aria-hidden=\"true\">
+                                            <div class=\"modal-dialog\">
+                                                <div class=\"modal-content\">
+                                                    <div class=\"modal-header\">
+                                                        <h5 class=\"modal-title\" id=\"editUserModalLabel{{ user.id }}\">Modifier l'utilisateur</h5>
+                                                        <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>
+                                                    </div>
+                                                    <div class=\"modal-body\">
+                                                        <form id=\"editUserForm{{ user.id }}\">
+                                                            <input type=\"hidden\" name=\"_token\" value=\"{{ csrf_token('edit' ~ user.id) }}\">
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"nom{{ user.id }}\" class=\"form-label\">Nom</label>
+                                                                <input type=\"text\" class=\"form-control\" id=\"nom{{ user.id }}\" name=\"nom\" value=\"{{ user.nom }}\" readonly>
+                                                                <small class=\"form-text text-muted\">Seul l'utilisateur peut modifier son nom</small>
+                                                            </div>
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"prenom{{ user.id }}\" class=\"form-label\">Prénom</label>
+                                                                <input type=\"text\" class=\"form-control\" id=\"prenom{{ user.id }}\" name=\"prenom\" value=\"{{ user.prenom }}\" readonly>
+                                                                <small class=\"form-text text-muted\">Seul l'utilisateur peut modifier son prénom</small>
+                                                            </div>
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"email{{ user.id }}\" class=\"form-label\">Email</label>
+                                                                <input type=\"email\" class=\"form-control\" id=\"email{{ user.id }}\" name=\"email\" value=\"{{ user.email }}\" readonly>
+                                                                <small class=\"form-text text-muted\">Seul l'utilisateur peut modifier son email</small>
+                                                            </div>
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"password{{ user.id }}\" class=\"form-label\">Mot de passe</label>
+                                                                <input type=\"password\" class=\"form-control\" id=\"password{{ user.id }}\" name=\"password\" placeholder=\"Modification non autorisée\" disabled>
+                                                                <small class=\"form-text text-muted\">Seul l'utilisateur peut modifier son mot de passe</small>
+                                                            </div>
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"type_utilisateur{{ user.id }}\" class=\"form-label\">Type d'utilisateur</label>
+                                                                <select class=\"form-select\" id=\"type_utilisateur{{ user.id }}\" name=\"type_utilisateur\" required>
+                                                                    <option value=\"admin\" {{ user.typeUtilisateur == 'admin' or user.typeUtilisateur == 'ROLE_ADMIN' ? 'selected' : '' }}>Administrateur</option>
+                                                                    <option value=\"freelance\" {{ user.typeUtilisateur == 'freelance' ? 'selected' : '' }}>Freelance</option>
+                                                                    <option value=\"formateur\" {{ user.typeUtilisateur == 'formateur' ? 'selected' : '' }}>Formateur</option>
+                                                                    <option value=\"employeur\" {{ user.typeUtilisateur == 'employeur' ? 'selected' : '' }}>Employeur</option>
+                                                                </select>
+                                                                <small class=\"form-text text-muted\">Seul champ modifiable par l'administrateur</small>
+                                                            </div>
+                                                            <div class=\"mb-3\">
+                                                                <label for=\"telephone{{ user.id }}\" class=\"form-label\">Téléphone</label>
+                                                                <input type=\"tel\" class=\"form-control\" id=\"telephone{{ user.id }}\" name=\"telephone\" value=\"{{ user.telephone }}\" readonly>
+                                                                <small class=\"form-text text-muted\">Seul l'utilisateur peut modifier son téléphone</small>
+                                                            </div>
+
+                                                            <div class=\"modal-footer\">
+                                                                <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Fermer</button>
+                                                                <button type=\"button\" class=\"btn btn-primary\" onclick=\"updateUser(event, {{ user.id }})\">Enregistrer les modifications</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% if user.isActive %}
+                                            <button class=\"btn btn-ban\" data-bs-toggle=\"modal\" data-bs-target=\"#banUserModal{{ user.id }}\" title=\"Bannir\">
+                                                <i class=\"bi bi-slash-circle-fill\"></i>
+                                            </button>
+                                        {% else %}
+                                            <button class=\"btn btn-unban\" data-bs-toggle=\"modal\" data-bs-target=\"#unbanUserModal{{ user.id }}\" title=\"Débannir\">
+                                                <i class=\"bi bi-check-circle-fill\"></i>
+                                            </button>
+                                        {% endif %}
+                                        <!-- Bouton pour générer un PDF pour cet utilisateur -->
+                                        <a href=\"{{ path('admin_user_pdf', {'id': user.id}) }}\" class=\"btn btn-pdf\" target=\"_blank\" title=\"Générer PDF\">
+                                            <i class=\"bi bi-file-pdf-fill\"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add User Modal -->
+    <div class=\"modal fade\" id=\"addUserModal\" tabindex=\"-1\" aria-labelledby=\"addUserModalLabel\" aria-hidden=\"true\">
+        <div class=\"modal-dialog\">
+            <div class=\"modal-content\">
+                <div class=\"modal-header\">
+                    <h5 class=\"modal-title\" id=\"addUserModalLabel\">Ajouter un utilisateur</h5>
+                    <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>
+                </div>
+                <div class=\"modal-body\">
+                    <form action=\"{{ path('admin_user_new') }}\" method=\"POST\" id=\"addUserForm\">
+                        <input type=\"hidden\" name=\"_token\" value=\"{{ csrf_token('new') }}\">
+                        <div class=\"mb-3\">
+                            <label for=\"nom\" class=\"form-label\">Nom</label>
+                            <input type=\"text\" class=\"form-control\" id=\"nom\" name=\"nom\" required>
+                        </div>
+                        <div class=\"mb-3\">
+                            <label for=\"prenom\" class=\"form-label\">Prénom</label>
+                            <input type=\"text\" class=\"form-control\" id=\"prenom\" name=\"prenom\" required>
+                        </div>
+                        <div class=\"mb-3\">
+                            <label for=\"email\" class=\"form-label\">Email</label>
+                            <input type=\"email\" class=\"form-control\" id=\"email\" name=\"email\" required>
+                        </div>
+                        <div class=\"mb-3\">
+                            <label for=\"password\" class=\"form-label\">Mot de passe</label>
+                            <input type=\"password\" class=\"form-control\" id=\"password\" name=\"password\" required>
+                        </div>
+                        <div class=\"mb-3\">
+                            <label for=\"type_utilisateur\" class=\"form-label\">Type d'utilisateur</label>
+                            <select class=\"form-select\" id=\"type_utilisateur\" name=\"type_utilisateur\" required>
+                                <option value=\"\">Choisir un type</option>
+                                <option value=\"admin\">Administrateur</option>
+                                <option value=\"freelance\">Freelance</option>
+                                <option value=\"formateur\">Formateur</option>
+                                <option value=\"employeur\">Employeur</option>
+                            </select>
+                        </div>
+                        <div class=\"mb-3\">
+                            <label for=\"telephone\" class=\"form-label\">Téléphone</label>
+                            <input type=\"tel\" class=\"form-control\" id=\"telephone\" name=\"telephone\" pattern=\"[0-9]{8}\" title=\"Le numéro de téléphone doit contenir 8 chiffres\">
+                            <small class=\"form-text text-muted\">Format: 8 chiffres sans espaces (ex: 12345678)</small>
+                        </div>
+
+                        <div class=\"modal-footer\">
+                            <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Fermer</button>
+                            <button type=\"submit\" class=\"btn btn-primary\">Ajouter</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Afficher les messages flash dans la modal si nécessaire
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    var alertDiv = document.createElement('div');
+                    alertDiv.className = 'alert alert-{{ label }}';
+                    alertDiv.textContent = '{{ message }}';
+                    document.querySelector('.modal-body').insertBefore(alertDiv, document.querySelector('.modal-body').firstChild);
+                {% endfor %}
+            {% endfor %}
+
+            // Réinitialiser le formulaire quand la modal est fermée
+            var addUserModal = document.getElementById('addUserModal');
+            addUserModal.addEventListener('hidden.bs.modal', function () {
+                var form = addUserModal.querySelector('form');
+                if (form) {
+                    form.reset();
+                }
+                // Supprimer les messages d'alerte
+                var alerts = addUserModal.querySelectorAll('.alert');
+                alerts.forEach(function(alert) {
+                    alert.remove();
+                });
+            });
+        });
+    </script>
+
+    <!-- Modals de bannissement pour chaque utilisateur -->
+    {% for user in users %}
+        <!-- Modal de bannissement -->
+        <div class=\"modal fade\" id=\"banUserModal{{ user.id }}\" tabindex=\"-1\" aria-labelledby=\"banUserModalLabel{{ user.id }}\" aria-hidden=\"true\">
+            <div class=\"modal-dialog\">
+                <div class=\"modal-content\">
+                    <div class=\"modal-header\">
+                        <h5 class=\"modal-title\" id=\"banUserModalLabel{{ user.id }}\">Bannir l'utilisateur</h5>
+                        <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>
+                    </div>
+                    <div class=\"modal-body\">
+                        <p>Êtes-vous sûr de vouloir bannir l'utilisateur <strong>{{ user.nom }} {{ user.prenom }}</strong> ?</p>
+                        <p>L'utilisateur ne pourra plus se connecter à son compte, mais ses données seront conservées.</p>
+                    </div>
+                    <div class=\"modal-footer\">
+                        <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Annuler</button>
+                        <button type=\"button\" class=\"btn btn-warning\" onclick=\"toggleUserStatus({{ user.id }}, false)\">Bannir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal de débannissement -->
+        <div class=\"modal fade\" id=\"unbanUserModal{{ user.id }}\" tabindex=\"-1\" aria-labelledby=\"unbanUserModalLabel{{ user.id }}\" aria-hidden=\"true\">
+            <div class=\"modal-dialog\">
+                <div class=\"modal-content\">
+                    <div class=\"modal-header\">
+                        <h5 class=\"modal-title\" id=\"unbanUserModalLabel{{ user.id }}\">Réactiver l'utilisateur</h5>
+                        <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>
+                    </div>
+                    <div class=\"modal-body\">
+                        <p>Êtes-vous sûr de vouloir réactiver l'utilisateur <strong>{{ user.nom }} {{ user.prenom }}</strong> ?</p>
+                        <p>L'utilisateur pourra à nouveau se connecter à son compte.</p>
+                    </div>
+                    <div class=\"modal-footer\">
+                        <button type=\"button\" class=\"btn btn-secondary\" data-bs-dismiss=\"modal\">Annuler</button>
+                        <button type=\"button\" class=\"btn btn-success\" onclick=\"toggleUserStatus({{ user.id }}, true)\">Réactiver</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <!-- Modal des conditions d'utilisation -->
+    <div class=\"modal fade\" id=\"conditionsModal\" tabindex=\"-1\" aria-labelledby=\"conditionsModalLabel\" aria-hidden=\"true\">
+        <div class=\"modal-dialog modal-lg\">
+            <div class=\"modal-content\">
+                <div class=\"modal-header\">
+                    <h5 class=\"modal-title\" id=\"conditionsModalLabel\">Conditions d'utilisation</h5>
+                    <button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"modal\" aria-label=\"Close\"></button>
+                </div>
+                <div class=\"modal-body\">
+                    <h4>Conditions Générales d'Utilisation</h4>
+                    <p>Dernière mise à jour : {{ \"now\"|date(\"d/m/Y\") }}</p>
+                    
+                    <h5>1. Acceptation des conditions</h5>
+                    <p>En utilisant cette plateforme, vous acceptez de vous conformer aux présentes Conditions Générales d'Utilisation. Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser cette plateforme.</p>
+                    
+                    <h5>2. Description du service</h5>
+                    <p>Notre plateforme propose des services de mise en relation entre freelances, formateurs, employeurs et administrateurs dans le cadre de projets professionnels.</p>
+                    
+                    <h5>3. Inscription et comptes utilisateurs</h5>
+                    <p>Pour utiliser certaines fonctionnalités de notre plateforme, vous devez créer un compte. Vous êtes responsable de maintenir la confidentialité de vos identifiants et de toutes les activités qui se produisent sous votre compte.</p>
+                    
+                    <h5>4. Données personnelles</h5>
+                    <p>Nous recueillons et traitons vos données personnelles conformément à notre politique de confidentialité. En utilisant notre plateforme, vous consentez à cette collecte et à ce traitement.</p>
+                    
+                    <h5>5. Propriété intellectuelle</h5>
+                    <p>Tous les contenus présents sur cette plateforme sont protégés par des droits de propriété intellectuelle. Toute reproduction non autorisée est interdite.</p>
+                    
+                    <h5>6. Limitation de responsabilité</h5>
+                    <p>Nous ne pouvons garantir que notre plateforme sera exempte d'erreurs ou d'interruptions. Nous ne sommes pas responsables des dommages indirects résultant de l'utilisation de notre plateforme.</p>
+                    
+                    <h5>7. Modification des conditions</h5>
+                    <p>Nous nous réservons le droit de modifier ces conditions à tout moment. Les modifications prennent effet dès leur publication sur la plateforme.</p>
+                </div>
+                <div class=\"modal-footer\">
+                    <button type=\"button\" class=\"btn btn-primary\" data-bs-dismiss=\"modal\">J'ai compris</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+", "admin/users.html.twig", "/Users/moetezjebari/Desktop/PIDV-WEB3A19-Mouheb-User - Copy/Downloads/PIDV-WEB3A19-Mouheb-User - Copy/Downloads/PIDV-WEB3A19-Mouheb-User - Copy/templates/admin/users.html.twig");
+    }
+}
