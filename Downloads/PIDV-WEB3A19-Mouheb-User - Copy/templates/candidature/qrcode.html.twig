@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}QR Code - Candidature{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<style>
+    .qr-container {
+        text-align: center;
+        margin: 2rem auto;
+        max-width: 500px;
+    }
+    .qr-code {
+        margin: 1rem auto;
+        padding: 1rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .candidature-info {
+        margin: 1rem 0;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+    }
+    .candidature-info p {
+        margin-bottom: 0.5rem;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="qr-container">
+        <h1>QR Code - Candidature</h1>
+        
+        <div class="candidature-info">
+            <p><strong>Candidat:</strong> {{ candidature.user.prenom }} {{ candidature.user.nom }}</p>
+            <p><strong>Mission:</strong> {{ candidature.mission.titre }}</p>
+            <p><strong>Date:</strong> {{ "now"|date('d/m/Y') }}</p>
+        </div>
+
+        {% if qrCode is defined %}
+            <div class="qr-code">
+                <img src="data:image/png;base64,{{ qrCode }}" alt="QR Code">
+            </div>
+            <a href="{{ path('app_candidature_show', {'id': candidature.id}) }}" class="btn btn-secondary mt-3">
+                <i class="bi bi-arrow-left"></i> Retour aux détails
+            </a>
+        {% else %}
+            <div class="alert alert-info">
+                Le QR code sera généré une fois le formulaire soumis.
+            </div>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-primary">
+                <i class="bi bi-qr-code"></i> Générer le QR Code
+            </button>
+            {{ form_end(form) }}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

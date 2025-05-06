@@ -1,0 +1,302 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Candidature de {{ candidature.user.prenom }} {{ candidature.user.nom }}{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<style>
+    :root {
+        --primary-color: #4f46e5;
+        --secondary-color: #ef4444;
+        --primary-light: rgba(79, 70, 229, 0.1);
+        --secondary-light: #dc2626;
+    }
+
+    /* Style général */
+    .detail-container {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        padding: 30px;
+        margin-top: 30px;
+    }
+    
+    /* Titre */
+    .page-title {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 30px;
+        position: relative;
+        padding-bottom: 15px;
+    }
+    
+    .page-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 60px;
+        height: 4px;
+        background-color: var(--primary-color);
+        border-radius: 2px;
+    }
+    
+    /* Tableau */
+    .detail-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+    
+    .detail-table th {
+        width: 25%;
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+        color: #495057;
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #e9ecef;
+    }
+    
+    .detail-table td {
+        padding: 15px;
+        border-bottom: 1px solid #e9ecef;
+        vertical-align: middle;
+    }
+    
+    .detail-table tr:last-child td,
+    .detail-table tr:last-child th {
+        border-bottom: none;
+    }
+    
+    /* Images */
+    .img-thumbnail {
+        border-radius: 8px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        transition: transform 0.3s ease;
+        max-width: 100%;
+        height: auto;
+    }
+    
+    .img-thumbnail:hover {
+        transform: scale(1.05);
+    }
+    
+    .qr-code-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-top: 10px;
+    }
+    
+    /* Boutons */
+    .btn {
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: white;
+    }
+    
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+        transform: translateY(-2px);
+    }
+    
+    .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+    
+    .btn-primary:hover {
+        background-color: #4338ca;
+        border-color: #4338ca;
+        transform: translateY(-2px);
+    }
+    
+    .btn-outline-primary {
+        border-color: var(--primary-color);
+        color: var(--primary-color);
+    }
+    
+    .btn-outline-primary:hover {
+        background-color: var(--primary-light);
+    }
+    
+    .btn-outline-success {
+        border-color: #198754;
+        color: #198754;
+    }
+    
+    .btn-outline-success:hover {
+        background-color: rgba(25, 135, 84, 0.1);
+    }
+    
+    .btn-danger {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+    }
+    
+    .btn-danger:hover {
+        background-color: var(--secondary-light);
+        border-color: var(--secondary-light);
+        transform: translateY(-2px);
+    }
+    
+    /* Actions */
+    .action-buttons {
+        display: flex;
+        gap: 10px;
+        margin-top: 30px;
+        flex-wrap: wrap;
+    }
+    
+    /* Texte */
+    .text-muted {
+        color: #6c757d !important;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .detail-container {
+            padding: 20px;
+        }
+        
+        .detail-table {
+            display: block;
+            overflow-x: auto;
+        }
+        
+        .page-title {
+            font-size: 1.5rem;
+        }
+        
+        .action-buttons {
+            flex-direction: column;
+        }
+        
+        .action-buttons .btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="detail-container">
+        <h1 class="page-title">Candidature de {{ candidature.user.prenom }} {{ candidature.user.nom }}</h1>
+
+        <table class="detail-table">
+            <tbody>
+                <tr>
+                    <th>Utilisateur</th>
+                    <td>{{ candidature.user.prenom }} {{ candidature.user.nom }}</td>
+                </tr>
+                <tr>
+                    <th>Mission associée</th>
+                    <td>
+                        {% if candidature.mission %}
+                            <div class="d-flex flex-column">
+                                <span class="mb-2">{{ candidature.mission.titre }}</span>
+                                <div class="d-flex gap-2">
+                                    <a href="{{ path('app_candidature_qrcode', {'id': candidature.id}) }}" 
+                                       class="btn btn-outline-primary">
+                                        <i class="bi bi-qr-code"></i> Voir QR Code
+                                    </a>
+                                    <a href="{{ path('app_mission_show', {'id': candidature.mission.id}) }}"
+                                       class="btn btn-outline-success">
+                                        <i class="bi bi-eye"></i> Voir Mission
+                                    </a>
+                                </div>
+                            </div>
+                        {% else %}
+                            <span class="text-muted">Aucune mission associée</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Image</th>
+                    <td>
+                        {% if candidature.image %}
+                            <img src="{{ asset('uploads/candidatures/' ~ candidature.image) }}" 
+                                 width="200" 
+                                 class="img-thumbnail"
+                                 style="max-height: 200px; object-fit: cover;">
+                        {% else %}
+                            <span class="text-muted">Aucune image</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Réponses</th>
+                    <td>{{ candidature.reponseQuestions ?? 'Aucune réponse' }}</td>
+                </tr>
+                <tr>
+                    <th>Lettre de motivation</th>
+                    <td>{{ candidature.lettreMotivation ?? 'Aucune lettre de motivation' }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="action-buttons mt-4">
+            <a href="{{ path('app_candidature_edit', {'id': candidature.id}) }}" class="btn btn-warning">
+                <i class="bi bi-pencil"></i> Modifier
+            </a>
+            <a href="{{ path('app_candidature_qrcode', {'id': candidature.id}) }}" class="btn btn-info">
+                <i class="bi bi-qr-code"></i> QR Code
+            </a>
+            <form method="post" action="{{ path('app_candidature_delete', {'id': candidature.id}) }}" style="display: inline-block;">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ candidature.id) }}">
+                <button class="btn btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cette candidature ?');">
+                    <i class="bi bi-trash"></i> Supprimer
+                </button>
+            </form>
+            <a href="{{ path('app_candidature_index') }}" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Retour
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Animation des images
+    const images = document.querySelectorAll('.img-thumbnail');
+    images.forEach(img => {
+        img.addEventListener('mouseover', function() {
+            this.style.transform = 'scale(1.05)';
+        });
+        img.addEventListener('mouseout', function() {
+            this.style.transform = '';
+        });
+    });
+    
+    // Animation des boutons
+    const buttons = document.querySelectorAll('.btn');
+    buttons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+        });
+        button.addEventListener('mouseleave', function() {
+            this.style.transform = '';
+        });
+    });
+});
+</script>
+{% endblock %}
